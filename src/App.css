@@ -3,12 +3,6 @@
   padding: 0;
   box-sizing: inherit;
 }
-
-html {
-  font-size: 63.5%;
-}
-
-
 textarea {
   width: 50%;
   height: 150px;
