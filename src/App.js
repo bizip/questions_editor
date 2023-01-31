@@ -1,11 +1,15 @@
 import './App.css';
 
 function App() {
+  const handleSubmit = () => {
+
+  }
   return (
     <div className="App">
       <h1>Questions editor</h1>
-      <form>
-        <textarea>Some text...</textarea>
+      <form onSubmit={handleSubmit}>
+        <textarea></textarea>
+        <input type='submit' value="submit" />
       </form>
     </div>
   );
