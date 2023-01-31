@@ -1,8 +1,4 @@
-![](https://img.shields.io/badge/Microverse-blueviolet)
-
-# Math magicians
-
-> "Math magicians" is a website for all fans of mathematics. It is a Single Page App (SPA) that allows users to: Make simple calculations. Read a random math-related
+# Qestion editor
 
 ## Built With
 
@@ -19,7 +15,7 @@ You need to have a basic knowledge about HTML and CSS
 
 ### Setup
 
-#### clone this project (using git clone https://github.com/bizip/math_magicians.git) to your local computer and use telminal to navigate into the parent directory of this project.
+#### clone this project (using git clone) to your local computer and use telminal to navigate into the parent directory of this project.
 
 ### Install
 
