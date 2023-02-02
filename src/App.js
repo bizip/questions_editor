@@ -1,13 +1,8 @@
 import { useState, useId } from 'react';
 import './App.css';
-<<<<<<< HEAD
-import { v4 as uuidv4 } from 'uuid';
-
-=======
 import Model from './components/Model';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Question from './Question';
->>>>>>> f8971e6 (Add popup)
 
 function App() {
   const [data, setData] = useState({});
