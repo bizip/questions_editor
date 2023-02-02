@@ -37,11 +37,11 @@ function App() {
         <textarea onChange={(e) => { setData(e.target.value); }} />
         <input type="submit" value="submit" />
       </form>
-
+      <div className='splited__questions'>
       {result.length > 0 && result.map((item) => (
-        <button type="button" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
+        <button type="button" className='splited__questions' name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
       ))}
-
+      </div>
       {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
 
       {createQuestion && <DropD />}
