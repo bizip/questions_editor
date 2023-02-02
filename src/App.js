@@ -2,13 +2,15 @@ import { useState, useId } from 'react';
 import './App.css';
 import Model from './components/Model';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Question from './Question';
+import DropD from './components/Dropdowns';
 
 function App() {
   const [data, setData] = useState({});
   const [result, setResult] = useState([]);
-  const [isOpen,setIsOpen] =useState(false);
-  const [popupValue, setPopupVAlue] = useState('')
+  const [isOpen, setIsOpen] = useState(false);
+  const [popupValue, setPopupVAlue] = useState('');
+  const [createQuestion,setCreateQuestion] =useState(false);
+
   const id = useId();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +22,14 @@ function App() {
     setIsOpen((current) => !current);
   };
 
+  const handleIsOpen=()=>{
+    setIsOpen(false)
+  }
+
+  const handleOnSaveData=(e)=>{
+    setCreateQuestion(true);
+  }
+
   return (
     <div className="App">
       <h1>Questions editor</h1>
@@ -28,16 +38,13 @@ function App() {
         <input type="submit" value="submit" />
       </form>
 
-    
-        {result.length > 0 && result.map((item) => (
+      {result.length > 0 && result.map((item) => (
+        <button type="button" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
+      ))}
 
-            <button type="button" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
-         
-        ))}
-    
+      {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
 
-
-      {isOpen && <Model name={popupValue} />}
+      {createQuestion && <DropD />}
     </div>
   );
 }
