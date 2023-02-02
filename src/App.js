@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import Question from './Question';
 
 function App() {
   const [data, setData] = useState({});
