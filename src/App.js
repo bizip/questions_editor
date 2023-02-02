@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import './App.css';
-import Question from './Question';
+import { v4 as uuidv4 } from 'uuid';
+
 
 function App() {
   const [data, setData] = useState({});
   const [result, setResult] = useState([]);
+  // const v4 = uuidv4()
   const handleSubmit = (e) => {
     e.preventDefault();
     setResult(data.split(/(\s+)/).filter((e) => e.trim().length > 0));
   };
+
 
   return (
     <div className="App">
@@ -20,9 +23,9 @@ function App() {
 
       <ul>
         {result.length > 0 && result.map((item, index) => (
-          <li key={index + 1}>
-            <a href="#">{item}</a>
-          </li>
+          <li key={uuidv4()}>
+          <a href="#">{item}</a>
+        </li>
         ))}
       </ul>
     </div>
