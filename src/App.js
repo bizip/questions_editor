@@ -1,12 +1,19 @@
 import { useState, useId } from 'react';
 import './App.css';
+<<<<<<< HEAD
 import { v4 as uuidv4 } from 'uuid';
 
+=======
+import Model from './components/Model';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Question from './Question';
+>>>>>>> f8971e6 (Add popup)
 
 function App() {
   const [data, setData] = useState({});
   const [result, setResult] = useState([]);
   const [isOpen,setIsOpen] =useState(false);
+  const [popupValue, setPopupVAlue] = useState('')
   const id = useId();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +21,7 @@ function App() {
   };
 
   const handleOption = (e) => {
+    setPopupVAlue(e.target.name);
     setIsOpen((current) => !current);
   };
 
@@ -25,22 +33,16 @@ function App() {
         <input type="submit" value="submit" />
       </form>
 
-      <ul>
+    
         {result.length > 0 && result.map((item) => (
-          <li key={id}>
-            <button id={id} type="button" onClick={(e) => { handleOption(e); }}>{item}</button>
-          </li>
+
+            <button type="button" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
+         
         ))}
-      </ul>
+    
 
 
-      {isOpen && 
-        <ul>
-        <li>Create Drop down</li>
-        <li>Create List</li>
-        <li>Create Radio</li>
-      </ul>
-      }
+      {isOpen && <Model name={popupValue} />}
     </div>
   );
 }

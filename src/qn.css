@@ -44,4 +44,10 @@
   .alternatives li:hover {
     background-color: gray;
   }
+
+.edit_question{
+  display: flex;
+  padding: 2rem;
+  
+}
   
