@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: inherit;
 }
+
 textarea {
   width: 50%;
   height: 150px;
@@ -15,16 +16,15 @@ textarea {
   resize: none;
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: column;
 }
 
-.form > *{
+.form > * {
   margin: 0 1rem;
 }
 
-
-.splited__questions{
+.splited__questions {
   margin-right: 1rem;
 }

@@ -9,7 +9,7 @@ function App() {
   const [result, setResult] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [popupValue, setPopupVAlue] = useState('');
-  const [createQuestion,setCreateQuestion] =useState(false);
+  const [createQuestion, setCreateQuestion] = useState(false);
 
   const id = useId();
   const handleSubmit = (e) => {
@@ -22,13 +22,13 @@ function App() {
     setIsOpen((current) => !current);
   };
 
-  const handleIsOpen=()=>{
-    setIsOpen(false)
-  }
+  const handleIsOpen = () => {
+    setIsOpen(false);
+  };
 
-  const handleOnSaveData=(e)=>{
+  const handleOnSaveData = () => {
     setCreateQuestion(true);
-  }
+  };
 
   return (
     <div className="App">
@@ -37,10 +37,10 @@ function App() {
         <textarea onChange={(e) => { setData(e.target.value); }} />
         <input type="submit" value="submit" />
       </form>
-      <div className='splited__questions'>
-      {result.length > 0 && result.map((item) => (
-        <button type="button" className='splited__questions' name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
-      ))}
+      <div className="splited__questions">
+        {result.length > 0 && result.map((item) => (
+          <button type="button" key={id} className="splited__questions" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
+        ))}
       </div>
       {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
 
