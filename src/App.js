@@ -8,7 +8,7 @@ function App() {
   const [data, setData] = useState({});
   const [result, setResult] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [isNew,setIsNew] =useState(true);
+  const [isNew, setIsNew] = useState(true);
   const [popupValue, setPopupVAlue] = useState('');
   const [createQuestion, setCreateQuestion] = useState(false);
   const [dropdownData, setDropdownData] = useState([]);
@@ -23,6 +23,7 @@ function App() {
   const handleOption = (e) => {
     setPopupVAlue(e.target.name);
     setIsOpen((current) => !current);
+  
   };
 
   const handleIsOpen = () => {
@@ -34,25 +35,33 @@ function App() {
     setCreateQuestion(true);
   };
 
+  const handleChoosenOption = (e) => {
+    const arr =[...result]
+    const index = arr.indexOf(popupValue);
+    if (index !== -1) {
+      arr[index] = e;
+    }
+  }
+
   return (
     <div className="App">
       {isNew && <section className='new__statement'>
-      <h1>Create A new Statement</h1>
-      <form onSubmit={handleSubmit}>
-        <textarea onChange={(e) => { setData(e.target.value); }} />
-        <input type="submit" class="btn btn-primary" value="submit" />
-      </form>
-    </section>}
+        <h1>Create A new Statement</h1>
+        <form onSubmit={handleSubmit}>
+          <textarea onChange={(e) => { setData(e.target.value); }} />
+          <input type="submit" class="btn btn-primary" value="submit" />
+        </form>
+      </section>}
 
       <section className="splited__section">
-      <h2>Choose a word to add a dropdown</h2>
+        <h2>Choose a word to add a dropdown</h2>
         {result.length > 0 && result.map((item) => (
           <button type="button" key={id} className="splited__questions btn btn-light" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
         ))}
       </section>
       {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
 
-      {createQuestion && <DropD keys={popupValue} data={dropdownData} className="top" />}
+      {createQuestion && <DropD keys={popupValue} choosenOption={handleChoosenOption} data={dropdownData} className="top" />}
     </div>
   );
 }
