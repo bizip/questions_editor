@@ -10,6 +10,7 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [popupValue, setPopupVAlue] = useState('');
   const [createQuestion, setCreateQuestion] = useState(false);
+  const [dropdownData,setDropdownData] =useState([]);
 
   const id = useId();
   const handleSubmit = (e) => {
@@ -26,7 +27,8 @@ function App() {
     setIsOpen(false);
   };
 
-  const handleOnSaveData = () => {
+  const handleOnSaveData = (e) => {
+    setDropdownData(e);
     setCreateQuestion(true);
   };
 
@@ -44,7 +46,7 @@ function App() {
       </div>
       {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
 
-      {createQuestion && <DropD />}
+      {createQuestion && <DropD keys={popupValue} data={dropdownData} />}
     </div>
   );
 }
