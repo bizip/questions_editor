@@ -12,6 +12,7 @@ function App() {
   const [popupValue, setPopupVAlue] = useState('');
   const [createQuestion, setCreateQuestion] = useState(false);
   const [dropdownData, setDropdownData] = useState([]);
+  const [manupulatedStatement, setManupulatedStatement] = useState([]);
 
   const id = useId();
   const handleSubmit = (e) => {
@@ -41,6 +42,7 @@ function App() {
     if (index !== -1) {
       arr[index] = e;
     }
+    setResult([...arr])
   }
 
   return (
