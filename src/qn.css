@@ -1,47 +1,51 @@
 .question {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .word {
-    margin: 10px;
-    position: relative;
-  }
-  
-  .word span {
-    cursor: pointer;
-    padding: 10px;
-    border: 1px solid gray;
-    border-radius: 5px;
-  }
-  
-  .word span.active {
-    background-color: lightgray;
-  }
-  
-  .alternatives {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background-color: lightgray;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border-radius: 5px;
-    border: 1px solid gray;
-    display: none;
-  }
-  
-  .word.active .alternatives {
-    display: block;
-  }
-  
-  .alternatives li {
-    cursor: pointer;
-    padding: 10px;
-  }
-  
-  .alternatives li:hover {
-    background-color: gray;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.word {
+  margin: 10px;
+  position: relative;
+}
+
+.word span {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.word span.active {
+  background-color: lightgray;
+}
+
+.alternatives {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: lightgray;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  border: 1px solid gray;
+  display: none;
+}
+
+.word.active .alternatives {
+  display: block;
+}
+
+.alternatives li {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.alternatives li:hover {
+  background-color: gray;
+}
+
+.edit_question {
+  display: flex;
+  padding: 2rem;
+}
