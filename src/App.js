@@ -1,18 +1,17 @@
 import { useState, useId } from 'react';
 import './App.css';
-import Question from './Question';
 
 function App() {
   const [data, setData] = useState({});
   const [result, setResult] = useState([]);
-  const [isOpen,setIsOpen] =useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const id = useId();
   const handleSubmit = (e) => {
     e.preventDefault();
     setResult(data.split(/(\s+)/).filter((e) => e.trim().length > 0));
   };
 
-  const handleOption = (e) => {
+  const handleOption = () => {
     setIsOpen((current) => !current);
   };
 
@@ -24,7 +23,7 @@ function App() {
         <input type="submit" value="submit" />
       </form>
 
-      <ul>
+      <ul className="question">
         {result.length > 0 && result.map((item) => (
           <li key={id}>
             <button id={id} type="button" onClick={(e) => { handleOption(e); }}>{item}</button>
