@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: inherit;
 }
+
 textarea {
   width: 50%;
   height: 150px;
@@ -14,7 +15,16 @@ textarea {
   font-size: 16px;
   resize: none;
 }
-.question{
+
+.form {
   display: flex;
-  list-style: none;
+  flex-direction: column;
+}
+
+.form > * {
+  margin: 0 1rem;
+}
+
+.splited__questions {
+  margin-right: 1rem;
 }
