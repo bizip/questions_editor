@@ -2,7 +2,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 const DropD = (props) => {
 const {data, keys} =props;
-    return <Dropdown>
+    return <Dropdown id="top" >
         <Dropdown.Toggle variant="success" id="dropdown-basic">
             Choose option for {keys}
         </Dropdown.Toggle>
