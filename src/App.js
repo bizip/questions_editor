@@ -56,7 +56,7 @@ function App() {
       </section>}
 
       <section className="splited__section">
-        <h2>Choose a word to add a dropdown</h2>
+        {!isNew && <h2>Choose a word to add a dropdown</h2>}
         {result.length > 0 && result.map((item) => (
           <button type="button" key={id} className="splited__questions btn btn-light" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
         ))}
