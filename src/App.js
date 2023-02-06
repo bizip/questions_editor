@@ -12,6 +12,8 @@ function App() {
   const [popupValue, setPopupVAlue] = useState('');
   const [createQuestion, setCreateQuestion] = useState(false);
   const [dropdownData, setDropdownData] = useState([]);
+  const [changeCategory, setChangeCategory] = useState("");
+
   const [manupulatedStatement, setManupulatedStatement] = useState([]);
 
   const id = useId();
@@ -26,6 +28,8 @@ function App() {
     setIsOpen((current) => !current);
   
   };
+  
+  console.log(changeCategory)
 
   const handleIsOpen = () => {
     setIsOpen(false);
@@ -50,6 +54,17 @@ function App() {
       {isNew && <section className='new__statement'>
         <h1>Create A new Statement</h1>
         <form onSubmit={handleSubmit}>
+        <label>
+        Select a category:
+        <select onChange={(e) => {
+          setChangeCategory(e.target.value);
+        }}>
+          <option value="" >Select a category</option>
+          <option value="health">Health</option>
+          <option value="education">Education</option>
+          <option value="sports">Sports</option>
+        </select>
+      </label>
           <textarea onChange={(e) => { setData(e.target.value); }} />
           <input type="submit" class="btn btn-primary" value="submit" />
         </form>
