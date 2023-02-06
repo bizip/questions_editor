@@ -8,43 +8,62 @@ function App() {
   const [data, setData] = useState({});
   const [result, setResult] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isNew, setIsNew] = useState(true);
   const [popupValue, setPopupVAlue] = useState('');
   const [createQuestion, setCreateQuestion] = useState(false);
+  const [dropdownData, setDropdownData] = useState([]);
+  const [manupulatedStatement, setManupulatedStatement] = useState([]);
 
   const id = useId();
   const handleSubmit = (e) => {
     e.preventDefault();
     setResult(data.split(/(\s+)/).filter((e) => e.trim().length > 0));
+    setIsNew(false)
   };
 
   const handleOption = (e) => {
     setPopupVAlue(e.target.name);
     setIsOpen((current) => !current);
+  
   };
 
   const handleIsOpen = () => {
     setIsOpen(false);
   };
 
-  const handleOnSaveData = () => {
+  const handleOnSaveData = (e) => {
+    setDropdownData(e);
     setCreateQuestion(true);
   };
 
+  const handleChoosenOption = (e) => {
+    const arr =[...result]
+    const index = arr.indexOf(popupValue);
+    if (index !== -1) {
+      arr[index] = e;
+    }
+    setResult([...arr])
+  }
+
   return (
     <div className="App">
-      <h1>Questions editor</h1>
-      <form onSubmit={handleSubmit}>
-        <textarea onChange={(e) => { setData(e.target.value); }} />
-        <input type="submit" value="submit" />
-      </form>
-      <div className="splited__questions">
+      {isNew && <section className='new__statement'>
+        <h1>Create A new Statement</h1>
+        <form onSubmit={handleSubmit}>
+          <textarea onChange={(e) => { setData(e.target.value); }} />
+          <input type="submit" class="btn btn-primary" value="submit" />
+        </form>
+      </section>}
+
+      <section className="splited__section">
+        {!isNew && <h2>Choose a word to add a dropdown</h2>}
         {result.length > 0 && result.map((item) => (
-          <button type="button" key={id} className="splited__questions" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
+          <button type="button" key={id} className="splited__questions btn btn-light" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
         ))}
-      </div>
+      </section>
       {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
 
-      {createQuestion && <DropD />}
+      {createQuestion && <DropD keys={popupValue} choosenOption={handleChoosenOption} data={dropdownData} className="top" />}
     </div>
   );
 }

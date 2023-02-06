@@ -1,16 +1,19 @@
-import Dropdown from 'react-bootstrap/Dropdown';
+// import { useState } from 'react';
 
-const DropD = () => (
-  <Dropdown>
-    <Dropdown.Toggle variant="success" id="dropdown-basic">
-      Dropdown Button
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-      <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-);
+const DropD = (props) => {
+    const { data, keys } = props;
+    // const [option,setOption] = useState('');
+
+    const handleChange=(e)=>{
+        props.choosenOption(e.target.value);
+    }
+    return <div>
+    <h2>Choose option for {keys}</h2>
+        <select name="cars" id="cars" onChange={(e)=>{handleChange(e)}}>
+            {data.length > 0 && data.map((item) => (<option value={item}>{item}</option>))}
+        </select>
+    </div>
+
+};
 
 export default DropD;

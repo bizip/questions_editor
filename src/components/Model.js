@@ -20,7 +20,7 @@ const Model = (props) => {
   return (
     <div>
       <Button onClick={() => setLgShow(true)}>
-        Choose option for
+        Choose option for &nbsp;
         {props.name}
       </Button>
       <Modal
@@ -40,8 +40,10 @@ const Model = (props) => {
           <form onSubmit={handleSubmit} className="form">
             <label htmlFor="fname">Enter the value</label>
             <input type="text" id="fname" value={value} name="fname" onChange={(e) => setValue(e.target.value)} />
-            <button type="button" id="lname" name="lname" onClick={handleAdd}>Add</button>
-            <button type="submit" id="lname" name="lname">Submit</button>
+            <div>
+            <button type="button" className='btn btn-primary' id="lname" name="lname" onClick={handleAdd}>Add</button>
+            <button type="submit" className='btn btn-success' id="lname" name="lname">Submit</button>
+            </div>
           </form>
           <ul>
             {pushValue.length > 0 && pushValue.map((item) => (<li>{item}</li>))}
