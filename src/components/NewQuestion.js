@@ -1,12 +1,13 @@
 import { useState, useId } from 'react';
-import './App.css';
-import Model from './components/Model';
+// import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DropD from './components/Dropdowns';
+import DropD from './Dropdowns';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from './utils/firebase';
+import Model from './Model';
+import { db } from '../utils/firebase';
+import { useNavigate } from 'react-router-dom';
 
-function App() {
+function NewQuestion() {
   const [data, setData] = useState({});
   const [result, setResult] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +22,8 @@ function App() {
   })
 
   const [lastResult, setlastResult] = useState([]);
+  const navigate = useNavigate();
+
 
   const id = useId();
   const handleSubmit = (e) => {
@@ -115,4 +118,4 @@ function App() {
   );
 }
 
-export default App;
+export default NewQuestion;

@@ -14,6 +14,7 @@ function Main() {
     event.preventDefault();
     navigate('/dashboard');
   };
+
   const handleSyncData = async () => {
     const querySnapshot = await getDocs(collection(db, `categories/${choseCategory}/questions`));
     querySnapshot.forEach((doc) => {
@@ -66,7 +67,7 @@ function Main() {
                }</td>
                <td>
                <Link to={`answer/${Item.id}`} variant='primary'>Find answer</Link>
-               <Button variant='danger' className={Item.id}>Delete</Button>
+               <Button variant='success' className={Item.id} onClick={handleEdit}>Edit</Button>
            </td>
             </tr>
             )))}
