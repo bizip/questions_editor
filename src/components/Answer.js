@@ -7,8 +7,7 @@ import Sidebar from './Sidebar';
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
     organization: "org-2DDqmQme6uZMfz64ezdcS3NT",
-    // apiKey: process.env.OPENAI_API_KEY,
-    apiKey: ""
+    apiKey: process.env.REACT_APP_API_KEY
 });
 const openai = new OpenAIApi(configuration);
 
@@ -34,8 +33,6 @@ const Answer = () => {
             console.log("No such document!");
         }
     }
-
-
     useEffect(() => {
         fetchQuestion(id)
     }, [])
