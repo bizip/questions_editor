@@ -3,6 +3,8 @@ import './App.css';
 import Model from './components/Model';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DropD from './components/Dropdowns';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from './utils/firebase';
 
 function App() {
   const [data, setData] = useState({});
@@ -13,8 +15,12 @@ function App() {
   const [createQuestion, setCreateQuestion] = useState(false);
   const [dropdownData, setDropdownData] = useState([]);
   const [changeCategory, setChangeCategory] = useState("");
+  const [newQuestion, setNewQuestion] = useState({
+    category: "",
+    question: "",
+  })
 
-  const [manupulatedStatement, setManupulatedStatement] = useState([]);
+  const [lastResult, setlastResult] = useState([]);
 
   const id = useId();
   const handleSubmit = (e) => {
@@ -26,10 +32,8 @@ function App() {
   const handleOption = (e) => {
     setPopupVAlue(e.target.name);
     setIsOpen((current) => !current);
-  
+
   };
-  
-  console.log(changeCategory)
 
   const handleIsOpen = () => {
     setIsOpen(false);
@@ -41,12 +45,38 @@ function App() {
   };
 
   const handleChoosenOption = (e) => {
-    const arr =[...result]
+    const arr = [...result]
     const index = arr.indexOf(popupValue);
     if (index !== -1) {
       arr[index] = e;
     }
-    setResult([...arr])
+    setlastResult([...arr])
+  }
+
+  const handleSubmittion =()=>{
+    // console.log()
+    // console.log(changeCategory)
+    // setNewQuestion({
+    //   ...newQuestion,
+    //   category: lastResult.join(' '),
+    //   question: e.target.value
+    // })
+
+    const citiesRef = collection(db, 'categories');
+    addDoc(collection(citiesRef, changeCategory, 'questions'), {
+      category: changeCategory,
+      question: lastResult.join(' ')
+  })
+  .then(()=>{
+    alert("new question added successfully!")
+    navigate("/")
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+
+  
+
   }
 
   return (
@@ -54,17 +84,17 @@ function App() {
       {isNew && <section className='new__statement'>
         <h1>Create A new Statement</h1>
         <form onSubmit={handleSubmit}>
-        <label>
-        Select a category:
-        <select onChange={(e) => {
-          setChangeCategory(e.target.value);
-        }}>
-          <option value="" >Select a category</option>
-          <option value="health">Health</option>
-          <option value="education">Education</option>
-          <option value="sports">Sports</option>
-        </select>
-      </label>
+          <label>
+            Select a category:
+            <select onChange={(e) => {
+              setChangeCategory(e.target.value);
+            }}>
+              <option value="" >Select a category</option>
+              <option value="health">Health</option>
+              <option value="education">Education</option>
+              <option value="sports">Sports</option>
+            </select>
+          </label>
           <textarea onChange={(e) => { setData(e.target.value); }} />
           <input type="submit" class="btn btn-primary" value="submit" />
         </form>
@@ -79,6 +109,15 @@ function App() {
       {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
 
       {createQuestion && <DropD keys={popupValue} choosenOption={handleChoosenOption} data={dropdownData} className="top" />}
+
+      <section className="splited__section">
+        {lastResult.length > 0 && lastResult.map((item) => (
+          <button type="button" key={id} className="splited__questions btn btn-light">{item}</button>
+          ))
+        }
+
+        <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmittion}>Submit this statement</button>
+      </section>
     </div>
   );
 }
