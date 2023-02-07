@@ -33,6 +33,10 @@ function Main() {
   const handleChange = (e) => {
     setChooseCategory(e.target.value)
   }
+
+  const handleEdit =()=>{
+    console.log("editing mode");
+  }
   return (
     <div className="App">
     <Sidebar />
