@@ -11,6 +11,7 @@ import Sidebar from './Sidebar';
 function NewQuestion() {
     const [data, setData] = useState({});
     const [result, setResult] = useState([]);
+    const [testResult, setTestResult] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [isNew, setIsNew] = useState(true);
     const [popupValue, setPopupVAlue] = useState('');
@@ -31,25 +32,38 @@ function NewQuestion() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setResult(data.split(/(\s+)/).filter((e) => e.trim().length > 0));
+        let splittedStatement = data.split(/(\s+)/).filter((e) => e.trim().length > 0);
+        const tempArr = [];
+        splittedStatement.map(item => {
+            tempArr.push({
+                name: item,
+                dropdowns: [],
+                category: changeCategory,
+            })
+        })
+        setTestResult(tempArr)
         setIsNew(false)
     };
+
+
+    console.log(testResult)
 
     const handleOption = (e) => {
         setPopupVAlue(e.target.name);
         setIsOpen((current) => !current);
-        
+
     };
-    
+
     const handleIsOpen = () => {
         setIsOpen(false);
     };
-    
+
     const handleOnSaveData = (e) => {
         setDropdownData(e);
         setCreateQuestion(true);
         setDisplay("block")
     };
-    
+
     const handleChoosenOption = (e) => {
         const arr = [...result]
         const index = arr.indexOf(popupValue);
@@ -57,7 +71,7 @@ function NewQuestion() {
             arr[index] = e;
         }
         setlastResult([...arr])
-        
+
     }
 
     const handleSubmittion = () => {
@@ -81,46 +95,46 @@ function NewQuestion() {
 
     return (
         <div>
-        <Sidebar />
-        <div className="App">
-            {isNew && <section className='new__statement'>
-                <h1>Create A new Statement</h1>
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Select a category:
-                        <select onChange={(e) => {
-                            setChangeCategory(e.target.value);
-                        }}>
-                            <option value="" >Select a category</option>
-                            <option value="health">Health</option>
-                            <option value="education">Education</option>
-                            <option value="sports">Sports</option>
-                        </select>
-                    </label>
-                    <textarea onChange={(e) => { setData(e.target.value); }} />
-                    <input type="submit" class="btn btn-primary" value="submit" />
-                </form>
-            </section>}
+            <Sidebar />
+            <div className="App">
+                {isNew && <section className='new__statement'>
+                    <h1>Create A new Statement</h1>
+                    <form onSubmit={handleSubmit}>
+                        <label>
+                            Select a category:
+                            <select onChange={(e) => {
+                                setChangeCategory(e.target.value);
+                            }}>
+                                <option value="" >Select a category</option>
+                                <option value="health">Health</option>
+                                <option value="education">Education</option>
+                                <option value="sports">Sports</option>
+                            </select>
+                        </label>
+                        <textarea onChange={(e) => { setData(e.target.value); }} />
+                        <input type="submit" class="btn btn-primary" value="submit" />
+                    </form>
+                </section>}
 
-            <section className="splited__section">
-                {!isNew && <h2>Choose a word to add a dropdown</h2>}
-                {result.length > 0 && result.map((item) => (
-                    <button type="button" key={id} className="splited__questions btn btn-light" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
-                ))}
-            </section>
-            {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
+                <section className="splited__section">
+                    {!isNew && <h2>Choose a word to add a dropdown</h2>}
+                    {result.length > 0 && result.map((item) => (
+                        <button type="button" key={id} className="splited__questions btn btn-light" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
+                    ))}
+                </section>
+                {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
 
-            {createQuestion && <DropD keys={popupValue} choosenOption={handleChoosenOption} data={dropdownData} className="top" />}
+                {createQuestion && <DropD keys={popupValue} choosenOption={handleChoosenOption} data={dropdownData} className="top" />}
 
-            <section className="splited__section">
-                {lastResult.length > 0 && lastResult.map((item) => (
-                    <button type="button" key={id} className="splited__questions btn btn-light">{item}</button>
-                ))
-                }
+                <section className="splited__section">
+                    {lastResult.length > 0 && lastResult.map((item) => (
+                        <button type="button" key={id} className="splited__questions btn btn-light">{item}</button>
+                    ))
+                    }
 
-                <button type="submit" style={{ display: display }} className='btn btn-success' id="lname" name="lname" onClick={handleSubmittion}>Submit this statement</button>
-            </section>
-        </div>
+                    <button type="submit" style={{ display: display }} className='btn btn-success' id="lname" name="lname" onClick={handleSubmittion}>Submit this statement</button>
+                </section>
+            </div>
         </div>
     );
 }
