@@ -1,4 +1,4 @@
-import { useState, useId } from 'react';
+import { useState, useId, useEffect } from 'react';
 // import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DropD from './Dropdowns';
@@ -18,7 +18,12 @@ function NewQuestion() {
     const [createQuestion, setCreateQuestion] = useState(false);
     const [dropdownData, setDropdownData] = useState([]);
     const [changeCategory, setChangeCategory] = useState("");
-    const [display, setDisplay] = useState("none")
+    const [display, setDisplay] = useState("none");
+    const [storage, setStorage] = useState([]);
+
+    useEffect(() => {
+    localStorage.setItem('dataKey', JSON.stringify(storage));
+    }, [storage]);
     const [newQuestion, setNewQuestion] = useState({
         category: "",
         question: "",
@@ -45,7 +50,6 @@ function NewQuestion() {
         setIsNew(false)
     };
 
-
     console.log(testResult)
 
     const handleOption = (e) => {
@@ -59,6 +63,17 @@ function NewQuestion() {
     };
 
     const handleOnSaveData = (e) => {
+        console.log(e, "data from on submit");
+    
+        testResult.map(item=>{
+           if(item.name === popupValue){
+            item.dropdowns=[...e]
+            setStorage(item);
+            console.log(item,"++++++++++++++")
+           }
+        })
+        
+        console.log(testResult)
         setDropdownData(e);
         setCreateQuestion(true);
         setDisplay("block")
@@ -118,8 +133,8 @@ function NewQuestion() {
 
                 <section className="splited__section">
                     {!isNew && <h2>Choose a word to add a dropdown</h2>}
-                    {result.length > 0 && result.map((item) => (
-                        <button type="button" key={id} className="splited__questions btn btn-light" name={item} onClick={(e) => { handleOption(e); }}>{item}</button>
+                    {testResult.length > 0 && testResult.map((item) => (
+                        <button type="button" key={item.name} className="splited__questions btn btn-light" name={item.name} onClick={(e) => { handleOption(e); }}>{item.name}</button>
                     ))}
                 </section>
                 {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
