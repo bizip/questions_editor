@@ -59,15 +59,7 @@ const ChooseOption = () => {
 
 
     const handleOnSaveData = (e) => {
-        // console.log("Data from model", e)
-        // console.log("coresponding Index, ", currentIndex);
-
-        // From chart gpt
         handleData(currentIndex, e);
-        // setOptionArr(questionData.dropdown[currentIndex])
-        // setDropdownData(e);
-        // setCreateQuestion(true);
-        // setDisplay("block")
     };
 
     useEffect(() => {
