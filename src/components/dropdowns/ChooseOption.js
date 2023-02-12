@@ -14,23 +14,42 @@ const ChooseOption = () => {
     const [questionData, setQuestionData] = useState({
 
     })
+    // +++++++++++++++++++++++++++++++++++++++++++++++++
+    const [statementData1, setStatementData1] = useState({
+        question: '',
+        dropdown: {}
+    });
+
+    const handleData = (index, newValue) => {
+        setStatementData1(prevState => {
+            const options = { ...prevState.dropdown };
+            options[index] = newValue;
+            return {
+                ...prevState,
+                dropdown: options
+            };
+        });
+    };
+
+    //   const newDropdown= (newDropdown) => {
+    //     setStatementData1(prevState => {
+    //       return {
+    //         ...prevState,
+    //         dropdown: newDropdown
+    //       };
+    //     });
+    //   };
+    // =================================================
     const location = useLocation()
     const { statement, category } = location.state
-    // console.log(data, "from new component")
     const handleOption = (e) => {
         const clickedWord = e.target.name;
         // const index = statement.indexOf(clickedWord);
         const index = e.target.id;
         setCurreIndex(index);
         setCurreWord(clickedWord)
-        console.log("name", clickedWord);
-        console.log("index", index);
-        console.log(statement, "statement");
-
-
-        // setPopupVAlue(e.target.name);
-        // setIsOpen((current) => !current);
-
+        setIsOpen(true);
+        setOptionArr(statementData1.dropdown[currentIndex])
     };
 
     const handleIsOpen = () => {
@@ -40,9 +59,15 @@ const ChooseOption = () => {
 
 
     const handleOnSaveData = (e) => {
-        setDropdownData(e);
-        setCreateQuestion(true);
-        setDisplay("block")
+        // console.log("Data from model", e)
+        // console.log("coresponding Index, ", currentIndex);
+
+        // From chart gpt
+        handleData(currentIndex, e);
+        // setOptionArr(questionData.dropdown[currentIndex])
+        // setDropdownData(e);
+        // setCreateQuestion(true);
+        // setDisplay("block")
     };
 
     useEffect(() => {
@@ -56,10 +81,13 @@ const ChooseOption = () => {
             question: statement,
             dropdown: options,
         };
+        setStatementData1({
+            question: statement,
+            dropdown: options
+        })
         setQuestionData(statementData);
         setOptionArr(statementData.dropdown[currentIndex])
     }, [])
-
     return (
         <section className="splited__section">
             <h2>Choose a word to add a dropdown</h2>
@@ -68,6 +96,8 @@ const ChooseOption = () => {
             ))}
 
             {optionArr.length > 0 && <DropD keys={currentWord} data={optionArr} className="top" />}
+
+            {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={currentWord} />}
 
         </section>
     )
