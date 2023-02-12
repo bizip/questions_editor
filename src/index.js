@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import Home from './pages/Home';
 import NewQuestion from './components/NewQuestion';
 import Answer from './components/Answer';
+import ChooseOption from './components/dropdowns/ChooseOption';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +15,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/options" element={<ChooseOption />} />
         <Route exact path="/new" element={<NewQuestion />} />
         <Route exact path="answer/:id" element={<Answer />}/>
       </Routes>

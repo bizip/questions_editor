@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 const Model = (props) => {
   const [lgShow, setLgShow] = useState(false);
   const [value, setValue] = useState('');
-  const [pushValue, setPushValue] = useState([]);
+  const [pushValue, setPushValue] = useState(props.previous);
   const handleAdd = () => {
     setPushValue([...pushValue, value]);
     setValue('');

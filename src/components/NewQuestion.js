@@ -5,7 +5,7 @@ import DropD from './Dropdowns';
 import { addDoc, collection } from 'firebase/firestore';
 import Model from './Model';
 import { db } from '../utils/firebase';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 function NewQuestion() {
@@ -20,14 +20,16 @@ function NewQuestion() {
     const [changeCategory, setChangeCategory] = useState("");
     const [display, setDisplay] = useState("none");
     const [storage, setStorage] = useState([]);
-
+    const [statement, setSatatement] = useState([]);
+    const [questionData, setQuestionData] = useState([]);
+    const [previousOptions, setpreviousOptions] = useState([]);
+    const [spacificDropdown, setSpecificDropDown] = useState([])
+    const [clickedIndex, setClickedIndex] = useState([]);
+    const [clickedWord, setclickedWord] = useState('');
+    const [addOption, setAddOption] = useState({});
     useEffect(() => {
-    localStorage.setItem('dataKey', JSON.stringify(storage));
+        localStorage.setItem('dataKey', JSON.stringify(storage));
     }, [storage]);
-    const [newQuestion, setNewQuestion] = useState({
-        category: "",
-        question: "",
-    })
 
     const [lastResult, setlastResult] = useState([]);
     const navigate = useNavigate();
@@ -39,23 +41,53 @@ function NewQuestion() {
         setResult(data.split(/(\s+)/).filter((e) => e.trim().length > 0));
         let splittedStatement = data.split(/(\s+)/).filter((e) => e.trim().length > 0);
         const tempArr = [];
-        splittedStatement.map(item => {
+        const options = {};
+
+        splittedStatement.forEach((value, index) => {
+            options[index] = []
+        })
+
+        options[clickedIndex] = previousOptions;
+        const statementData = {
+            question: data,
+            dropdown: options,
+        };
+
+        setQuestionData(statementData);
+        console.log(statementData, "statement data");
+        splittedStatement.forEach((item, index) => {
             tempArr.push({
                 name: item,
                 dropdowns: [],
                 category: changeCategory,
             })
         })
+        setSatatement(splittedStatement);
         setTestResult(tempArr)
         setIsNew(false)
     };
 
-    console.log(testResult)
 
     const handleOption = (e) => {
+        const clickedWord = e.target.name;
+        const index = statement.indexOf(clickedWord);
+        setClickedIndex(index);
+        setclickedWord(clickedWord)
+        console.log(e.target.name);
+        console.log('statement', statement)
+        console.log(clickedWord, 'index= ', index);
+        setpreviousOptions(questionData.dropdown[index])
+        setSpecificDropDown(questionData.dropdown[index])
+
+
+        // Statement that user entered
+        // questionData object
+        // index of the clicked work. To get the index we need the whole statement
+        // const index = statement.indexOf(clickedWork) done
+        // questionData['dropdown/options']['index'].push(newOption)
+        // Also show the previously entered data in the popup dropdown
         setPopupVAlue(e.target.name);
         setIsOpen((current) => !current);
-
     };
 
     const handleIsOpen = () => {
@@ -63,29 +95,34 @@ function NewQuestion() {
     };
 
     const handleOnSaveData = (e) => {
-        console.log(e, "data from on submit");
-    
-        testResult.map(item=>{
-           if(item.name === popupValue){
-            item.dropdowns=[...e]
-            setStorage(item);
-            console.log(item,"++++++++++++++")
-           }
+        setpreviousOptions(e);
+        console.log(clickedIndex, e, "__________________");
+        testResult.map(item => {
+            if (item.name === popupValue) {
+                item.dropdowns = [...e]
+                setStorage(item);
+            }
         })
-        
-        console.log(testResult)
         setDropdownData(e);
         setCreateQuestion(true);
         setDisplay("block")
+        // console.log(e, "Array from dropdown")
     };
 
     const handleChoosenOption = (e) => {
-        const arr = [...result]
-        const index = arr.indexOf(popupValue);
-        if (index !== -1) {
-            arr[index] = e;
-        }
-        setlastResult([...arr])
+        // console.log(result,"yyyydyy")
+        testResult.map(res => {
+            console.log(res, "res");
+        })
+        // console.log(result,"This is a result")
+        // const arr = [...result]
+        // const index = arr.indexOf(popupValue);
+        // if (index !== -1) {
+        //     arr[index] = e;
+        // }
+        // setlastResult([...arr])
+
+
 
     }
 
@@ -94,7 +131,8 @@ function NewQuestion() {
         const citiesRef = collection(db, 'categories');
         addDoc(collection(citiesRef, changeCategory, 'questions'), {
             category: changeCategory,
-            question: lastResult.join(' ')
+            question: lastResult.join(' '),
+            question1: testResult
         })
             .then(() => {
                 alert("new question added successfully!")
@@ -103,16 +141,15 @@ function NewQuestion() {
             .catch(err => {
                 console.log(err)
             })
-
-
-
     }
+
+    // console.log(testResult, lastResult)
 
     return (
         <div>
             <Sidebar />
             <div className="App">
-                {isNew && <section className='new__statement'>
+                <section className='new__statement'>
                     <h1>Create A new Statement</h1>
                     <form onSubmit={handleSubmit}>
                         <label>
@@ -127,27 +164,8 @@ function NewQuestion() {
                             </select>
                         </label>
                         <textarea onChange={(e) => { setData(e.target.value); }} />
-                        <input type="submit" class="btn btn-primary" value="submit" />
+                        <Link to='/options' state={{ statement:data, category:changeCategory }} class="btn btn-primary" variant='primary'>Find answer</Link>
                     </form>
-                </section>}
-
-                <section className="splited__section">
-                    {!isNew && <h2>Choose a word to add a dropdown</h2>}
-                    {testResult.length > 0 && testResult.map((item) => (
-                        <button type="button" key={item.name} className="splited__questions btn btn-light" name={item.name} onClick={(e) => { handleOption(e); }}>{item.name}</button>
-                    ))}
-                </section>
-                {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={popupValue} />}
-
-                {createQuestion && <DropD keys={popupValue} choosenOption={handleChoosenOption} data={dropdownData} className="top" />}
-
-                <section className="splited__section">
-                    {lastResult.length > 0 && lastResult.map((item) => (
-                        <button type="button" key={id} className="splited__questions btn btn-light">{item}</button>
-                    ))
-                    }
-
-                    <button type="submit" style={{ display: display }} className='btn btn-success' id="lname" name="lname" onClick={handleSubmittion}>Submit this statement</button>
                 </section>
             </div>
         </div>
