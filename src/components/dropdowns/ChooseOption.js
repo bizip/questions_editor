@@ -11,6 +11,7 @@ const ChooseOption = () => {
     const [currentIndex, setCurreIndex] = useState(0);
     const [optionArr, setOptionArr] = useState([]);
     const [data, setData] = useState([]);
+    const [updatedStatement, setUpdatedStatement] =useState([]);
     const [questionData, setQuestionData] = useState({
 
     })
@@ -62,9 +63,43 @@ const ChooseOption = () => {
         handleData(currentIndex, e);
     };
 
+    // const handleUpdate = (e, currentWord) => {
+    //     setUpdatedStatement(prevState => {
+    //       const arr = [...prevState];
+    //       const index = arr.indexOf(currentWord);
+    //       if (index !== -1) {
+    //         arr[index] = e;
+    //       }
+    //       return [...arr];
+    //     });
+    //   };
+
+
+    //   const updateElement = (index, newValue) => {
+    //     setData(prevArray => {
+    //       return [...prevArray.slice(0, index), newValue, ...prevArray.slice(index + 1)];
+    //     });
+    //   };
+      
+
+    const handleChoosedOption = (e) => {
+        console.log(e, currentIndex, "value from select box")
+        // const arr = [...data]
+        // const index = arr.indexOf(currentWord);
+        // if (index !== -1) {
+        //     arr[index] = e;
+        // }
+        // setUpdatedStatement([...arr])
+        setUpdatedStatement(prevArray => {
+            return [...prevArray.slice(0, currentIndex), e, ...prevArray.slice(currentIndex + 1)];
+          });
+
+    }
+
     useEffect(() => {
         let splittedStatement = statement.split(/(\s+)/).filter((e) => e.trim().length > 0);
         setData(splittedStatement);
+        setUpdatedStatement(splittedStatement);
         const options = {};
         splittedStatement.forEach((value, index) => {
             options[index] = []
@@ -87,10 +122,17 @@ const ChooseOption = () => {
                 <button type="button" className="splited__questions btn btn-light" name={item} id={index} onClick={(e) => { handleOption(e); }}>{item}</button>
             ))}
 
-            {optionArr.length > 0 && <DropD keys={currentWord} data={optionArr} className="top" />}
+            {optionArr.length > 0 && <DropD keys={currentWord} data={optionArr} choosenOption={handleChoosedOption} className="top" />}
 
             {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={currentWord} />}
 
+            <section className="splited__section">
+                {updatedStatement.length > 0 && updatedStatement.map((item) => (
+                    <button type="button" className="splited__questions btn btn-light">{item}</button>
+                ))}
+
+                <button type="submit"  className='btn btn-success' id="lname" name="lname">Submit this statement</button>
+            </section>
         </section>
     )
 }
