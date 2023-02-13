@@ -1,11 +1,22 @@
-import { addDoc, collection } from 'firebase/firestore';
+// import React from 'react'
+// import { useLocation } from 'react-router-dom'
+
+// const EditStatement = () => {
+//     const location = useLocation()
+//     const { statement, category, id } = location.state
+//     console.log(statement, category, id)
+//   return (
+//     <div>EditStatement</div>
+//   )
+// }
+
+// export default EditStatement;
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { db } from '../../utils/firebase';
-import DropD from '../Dropdowns';
-import Model from '../Model';
+import DropD from './Dropdowns';
+import Model from './Model';
 
-const ChooseOption = () => {
+const EditStatement = () => {
     const [dropdownData, setDropdownData] = useState([]);
     const [popupValue, setPopupVAlue] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +28,7 @@ const ChooseOption = () => {
     const [questionData, setQuestionData] = useState({
 
     })
+
 
   const navigate = useNavigate();
     const [statementData1, setStatementData1] = useState({
@@ -37,7 +49,7 @@ const ChooseOption = () => {
     };
 
     const location = useLocation()
-    const { statement, category } = location.state
+    const { statement, category, id, dropdowns } = location.state;
     const handleOption = (e) => {
         const clickedWord = e.target.name;
         const index = e.target.id;
@@ -51,13 +63,9 @@ const ChooseOption = () => {
         setIsOpen(false);
     };
 
-
-
     const handleOnSaveData = (e) => {
         handleData(currentIndex, e);
     };
-
-      
 
     const handleChoosedOption = (e) => {
         setUpdatedStatement(prevArray => {
@@ -66,21 +74,23 @@ const ChooseOption = () => {
 
     }
 
+    console.log(statement, category, id, dropdowns, "fro paramas ans location")
+
     const handleSubmitStatement=()=>{
-        console.log(statementData1, "my last submition");
-        const citiesRef = collection(db, 'categories');
-        addDoc(collection(citiesRef, category, 'questions'), {
-            category:category,
-            question: statementData1.question,
-            dropdown: statementData1.dropdown
-        })
-            .then(() => {
-                alert("new question added successfully!")
-                navigate("/")
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        // console.log(statementData1, "my last submition");
+        // const citiesRef = collection(db, 'categories');
+        // addDoc(collection(citiesRef, category, 'questions'), {
+        //     category:category,
+        //     question: statementData1.question,
+        //     dropdown: statementData1.dropdown
+        // })
+        //     .then(() => {
+        //         alert("new question added successfully!")
+        //         navigate("/")
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //     })
 
     }
 
@@ -98,14 +108,16 @@ const ChooseOption = () => {
         };
         setStatementData1({
             question: statement,
-            dropdown: options
+            dropdown: dropdowns
         })
+
+        console.log(dropdowns, "you are trying this")
         setQuestionData(statementData);
         setOptionArr(statementData.dropdown[currentIndex])
     }, [])
     return (
         <section className="splited__section">
-            <h2>Choose a word to add a dropdown</h2>
+            <h2>Choose a word to edit</h2>
             {data.length > 0 && data.map((item, index) => (
                 <button type="button" className="splited__questions btn btn-light" name={item} id={index} onClick={(e) => { handleOption(e); }}>{item}</button>
             ))}
@@ -125,4 +137,4 @@ const ChooseOption = () => {
     )
 }
 
-export default ChooseOption;
+export default EditStatement;

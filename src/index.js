@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import NewQuestion from './components/NewQuestion';
 import Answer from './components/Answer';
 import ChooseOption from './components/dropdowns/ChooseOption';
+import EditStatement from './components/EditStatement';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +17,7 @@ root.render(
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/options" element={<ChooseOption />} />
+        <Route exact path="/edit" element={<EditStatement />} />
         <Route exact path="/new" element={<NewQuestion />} />
         <Route exact path="answer/:id" element={<Answer />}/>
       </Routes>

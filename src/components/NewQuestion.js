@@ -164,7 +164,7 @@ function NewQuestion() {
                             </select>
                         </label>
                         <textarea onChange={(e) => { setData(e.target.value); }} />
-                        <Link to='/options' state={{ statement:data, category:changeCategory }} class="btn btn-primary" variant='primary'>Find answer</Link>
+                        <Link to='/options' state={{ statement:data, category:changeCategory }} class="btn btn-primary" variant='primary'>Submit</Link>
                     </form>
                 </section>
             </div>
