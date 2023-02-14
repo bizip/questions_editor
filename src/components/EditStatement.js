@@ -1,38 +1,36 @@
-// import React from 'react'
-// import { useLocation } from 'react-router-dom'
-
-// const EditStatement = () => {
-//     const location = useLocation()
-//     const { statement, category, id } = location.state
-//     console.log(statement, category, id)
-//   return (
-//     <div>EditStatement</div>
-//   )
-// }
-
-// export default EditStatement;
 import React, { useEffect, useState } from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DropD from './Dropdowns';
 import Model from './Model';
+const { Configuration, OpenAIApi } = require("openai");
+const configuration = new Configuration({
+    organization: "org-2DDqmQme6uZMfz64ezdcS3NT",
+    apiKey: process.env.REACT_APP_API_KEY
+});
+const openai = new OpenAIApi(configuration);
 
 const EditStatement = () => {
     const [dropdownData, setDropdownData] = useState([]);
+    const [text, setText] = useState("Copy this text to clipboard");
+    const [isCopied, setIsCopied] = useState(false);
     const [popupValue, setPopupVAlue] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [currentWord, setCurreWord] = useState("");
     const [currentIndex, setCurreIndex] = useState(0);
     const [optionArr, setOptionArr] = useState([]);
     const [data, setData] = useState([]);
-    const [updatedStatement, setUpdatedStatement] =useState([]);
+    const [updatedStatement, setUpdatedStatement] = useState([]);
     const [questionData, setQuestionData] = useState({
 
     })
 
+    const [solution, setSolution] = useState('');
 
-  const navigate = useNavigate();
+
+    const navigate = useNavigate();
     const [statementData1, setStatementData1] = useState({
-        category:'',
+        category: '',
         question: '',
         dropdown: {}
     });
@@ -68,15 +66,28 @@ const EditStatement = () => {
     };
 
     const handleChoosedOption = (e) => {
-        setUpdatedStatement(prevArray => {
-            return [...prevArray.slice(0, currentIndex), e, ...prevArray.slice(currentIndex + 1)];
-          });
+        const newArray = [...updatedStatement];
+        newArray[currentIndex] = e;
+        setUpdatedStatement(newArray);
 
     }
 
     console.log(statement, category, id, dropdowns, "fro paramas ans location")
 
-    const handleSubmitStatement=()=>{
+    const handleSubmitStatement = async () => {
+
+
+
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: updatedStatement.join(" "),
+            max_tokens: 100,
+            temperature: 0,
+        });
+
+        setSolution(response.data.choices[0].text);
+        // setAnswer(response.);
+
         // console.log(statementData1, "my last submition");
         // const citiesRef = collection(db, 'categories');
         // addDoc(collection(citiesRef, category, 'questions'), {
@@ -131,8 +142,48 @@ const EditStatement = () => {
                     <button type="button" className="splited__questions btn btn-light">{item}</button>
                 ))}
 
-                <button type="submit"  className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Submit this statement</button>
+                <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Find an answer</button>
             </section>
+
+           
+
+            <div className="App-container">
+      <div className="card">
+        <div className="card-header">
+          <h4 className="title">Here is the answer</h4>
+        </div>
+ 
+        <div className="card-body">
+          <textarea
+            type="text"
+            value={text}
+            onChange={({ target }) => {
+              setText(target.value);
+            }}
+            placeholder="Enter Message"
+            className="text-area"
+          />
+ 
+          {isCopied ? (
+            <p className="success-msg">Text copied to clipboard</p>
+          ) : null}
+ 
+          <CopyToClipboard
+            text={solution}
+            onCopy={() => {
+              setIsCopied(true);
+              setTimeout(() => {
+                setIsCopied(false);
+              }, 1000);
+            }}
+          >
+            <button className="btn">COPY</button>
+          </CopyToClipboard>
+ 
+        </div>
+      </div>
+    </div>
+        
         </section>
     )
 }

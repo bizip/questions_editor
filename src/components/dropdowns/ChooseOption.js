@@ -13,14 +13,14 @@ const ChooseOption = () => {
     const [currentIndex, setCurreIndex] = useState(0);
     const [optionArr, setOptionArr] = useState([]);
     const [data, setData] = useState([]);
-    const [updatedStatement, setUpdatedStatement] =useState([]);
+    const [updatedStatement, setUpdatedStatement] = useState([]);
     const [questionData, setQuestionData] = useState({
 
     })
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
     const [statementData1, setStatementData1] = useState({
-        category:'',
+        category: '',
         question: '',
         dropdown: {}
     });
@@ -57,20 +57,20 @@ const ChooseOption = () => {
         handleData(currentIndex, e);
     };
 
-      
+
 
     const handleChoosedOption = (e) => {
-        setUpdatedStatement(prevArray => {
-            return [...prevArray.slice(0, currentIndex), e, ...prevArray.slice(currentIndex + 1)];
-          });
+        const newArray = [...updatedStatement];
+        newArray[currentIndex] = e;
+        setUpdatedStatement(newArray);
 
     }
 
-    const handleSubmitStatement=()=>{
+    const handleSubmitStatement = () => {
         console.log(statementData1, "my last submition");
         const citiesRef = collection(db, 'categories');
         addDoc(collection(citiesRef, category, 'questions'), {
-            category:category,
+            category: category,
             question: statementData1.question,
             dropdown: statementData1.dropdown
         })
@@ -119,7 +119,7 @@ const ChooseOption = () => {
                     <button type="button" className="splited__questions btn btn-light">{item}</button>
                 ))}
 
-                <button type="submit"  className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Submit this statement</button>
+                <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Submit this statement</button>
             </section>
         </section>
     )
