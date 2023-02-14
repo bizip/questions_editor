@@ -86,23 +86,6 @@ const EditStatement = () => {
         });
 
         setSolution(response.data.choices[0].text);
-        // setAnswer(response.);
-
-        // console.log(statementData1, "my last submition");
-        // const citiesRef = collection(db, 'categories');
-        // addDoc(collection(citiesRef, category, 'questions'), {
-        //     category:category,
-        //     question: statementData1.question,
-        //     dropdown: statementData1.dropdown
-        // })
-        //     .then(() => {
-        //         alert("new question added successfully!")
-        //         navigate("/")
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
-
     }
 
     useEffect(() => {
