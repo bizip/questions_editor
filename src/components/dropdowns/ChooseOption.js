@@ -6,8 +6,6 @@ import DropD from '../Dropdowns';
 import Model from '../Model';
 
 const ChooseOption = () => {
-    const [dropdownData, setDropdownData] = useState([]);
-    const [popupValue, setPopupVAlue] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [currentWord, setCurreWord] = useState("");
     const [currentIndex, setCurreIndex] = useState(0);

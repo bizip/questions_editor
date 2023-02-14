@@ -3,13 +3,13 @@
   padding: 0;
   box-sizing: inherit;
 }
-
+/* rgb(77, 159, 146) */
 .App {
-  padding: 2.5% 20%;
+  /* padding: 2.5% 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  text-align: center; */
 }
 
 .App h1 {

@@ -1,9 +1,5 @@
-// import { useState } from 'react';
-
 const DropD = (props) => {
     const { data, keys } = props;
-    // const [option,setOption] = useState('');
-
     const handleChange = (e) => {
         props.choosenOption(e.target.value);
     }

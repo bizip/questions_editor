@@ -11,7 +11,6 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const EditStatement = () => {
-    const [dropdownData, setDropdownData] = useState([]);
     const [text, setText] = useState("Copy this text to clipboard");
     const [isCopied, setIsCopied] = useState(false);
     const [popupValue, setPopupVAlue] = useState('');
@@ -71,8 +70,6 @@ const EditStatement = () => {
         setUpdatedStatement(newArray);
 
     }
-
-    console.log(statement, category, id, dropdowns, "fro paramas ans location")
 
     const handleSubmitStatement = async () => {
 
