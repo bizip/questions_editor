@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from '../utils/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
-import Sidebar from './Sidebar';
+import styles from "./Main.module.css";
 
 function Main() {
     const [choseCategory, setChooseCategory] = useState('');
@@ -34,14 +34,8 @@ function Main() {
         setChooseCategory(e.target.value)
     }
 
-    const handleEdit = (e) => {
-        console.log("editing mode");
-    }
-
-    console.log(data, "this is data")
     return (
-        <div className="App">
-            <Sidebar />
+        <div className={styles.main}>
             <form onSubmit={handleFormSubmit}>
                 <label>
                     Select a category:
@@ -72,7 +66,6 @@ function Main() {
                                 <td>{Item.question}</td>
                                 <td>
                                     <Link to={`answer/${Item.id}`} variant='primary'>Find answer</Link>
-                                    <Button variant='danger' name={Item.question} onClick={handleEdit}>Delete</Button>
                                     <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} class="btn btn-primary" variant='primary'>Edit</Link>
                                 </td>
                             </tr>
