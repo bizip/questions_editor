@@ -36,43 +36,47 @@ function Main() {
 
     return (
         <div className={styles.main}>
-            <form onSubmit={handleFormSubmit}>
-                <label>
-                    Select a category:
-                    <select value={choseCategory} onChange={(e) => {
-                        handleChange(e)
-                    }}>
-                        <option value="">Select a category</option>
-                        <option value="health">Health</option>
-                        <option value="education">Education</option>
-                        <option value="sports">Sports</option>
-                    </select>
-                </label>
-                <Table responsive>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Category name</th>
-                            <th>Questions</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {(data.length > 0) && (data.map((Item, index) => (
-                            <tr key={Item.id}>
-                                <td>{index + 1}</td>
-                                <td>{Item.category}
-                                </td>
-                                <td>{Item.question}</td>
-                                <td>
-                                    <Link to={`answer/${Item.id}`} variant='primary'>Find answer</Link>
-                                    <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} class="btn btn-primary" variant='primary'>Edit</Link>
-                                </td>
+            <div className='statement_nav'>
+                <h1>Statement List</h1>
+            </div>
+            <section>
+                <form onSubmit={handleFormSubmit}>
+                    <label className={styles.label}>
+                        <select value={choseCategory} className="dropdowns" onChange={(e) => {
+                            handleChange(e)
+                        }}>
+                            <option value="">Select a category</option>
+                            <option value="health">Health</option>
+                            <option value="education">Education</option>
+                            <option value="sports">Sports</option>
+                        </select>
+                    </label>
+                    <Table responsive>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Category name</th>
+                                <th>Questions</th>
+                                <th></th>
                             </tr>
-                        )))}
-                    </tbody>
-                </Table>
-            </form>
+                        </thead>
+                        <tbody>
+                            {(data.length > 0) && (data.map((Item, index) => (
+                                <tr key={Item.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{Item.category}
+                                    </td>
+                                    <td>{Item.question}</td>
+                                    <td>
+                                        <Link to={`answer/${Item.id}`} variant='primary'>Find answer</Link>
+                                        <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} class="btn btn-primary" variant='primary'>Edit</Link>
+                                    </td>
+                                </tr>
+                            )))}
+                        </tbody>
+                    </Table>
+                </form>
+            </section>
         </div>
     );
 }

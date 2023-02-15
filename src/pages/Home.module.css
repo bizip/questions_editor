@@ -1,18 +1,21 @@
 .home_container {
-    display: flex;
-    /* overflow-y: auto;
-    flex: 1; */
+    height: 100%;
 }
 
 .sidebar {
-    height: 100vh;
-    background-color: rgb(77, 159, 146);
+    height: 100%;
     width: 20%;
     position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    background-color: rgb(77, 159, 146);
 }
 
-.sidebar_header_container{
-    width: 100%;
+.sidebar_header_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,22 +24,20 @@
     font-weight: 700;
     color: #fff;
     padding: 2rem 0;
-    
+
 }
 
 .sidebar_header {
     width: 7rem;
-    background-color: silver;
 
 }
 
-.sidebar_header img{
+.sidebar_header img {
     width: 100%;
 }
 
 .main_section {
-    overflow-y: auto;
-    flex: 1;
+  margin-left: 20%;
 }
 
 .sidebar_content {

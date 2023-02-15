@@ -144,3 +144,20 @@ textarea {
 .copy-text.active button:after {
   display: block;
 }
+
+
+.dropdowns {
+  width: 300px;
+  border-radius: 10px;
+  background-color: white;
+  padding: .7rem;
+}
+
+.statement_nav {
+  display: flex;
+  justify-content: center;
+  height: 4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
+  background-color: rgb(77, 159, 146);
+  color: #fff;
+}
