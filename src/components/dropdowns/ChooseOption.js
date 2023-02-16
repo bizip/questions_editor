@@ -65,7 +65,6 @@ const ChooseOption = () => {
     }
 
     const handleSubmitStatement = () => {
-        console.log(statementData1, "my last submition");
         const citiesRef = collection(db, 'categories');
         addDoc(collection(citiesRef, category, 'questions'), {
             category: category,
@@ -102,24 +101,31 @@ const ChooseOption = () => {
         setOptionArr(statementData.dropdown[currentIndex])
     }, [])
     return (
-        <section className="splited__section">
-            <h2>Choose a word to add a dropdown</h2>
-            {data.length > 0 && data.map((item, index) => (
-                <button type="button" className="splited__questions btn btn-light" name={item} id={index} onClick={(e) => { handleOption(e); }}>{item}</button>
-            ))}
-
-            {optionArr.length > 0 && <DropD keys={currentWord} data={optionArr} choosenOption={handleChoosedOption} className="top" />}
-
-            {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={currentWord} />}
-
+        <>
+            <div className="statement_nav">
+                <h1>Choose a word to add a dropdown</h1>
+            </div>
             <section className="splited__section">
-                {updatedStatement.length > 0 && updatedStatement.map((item) => (
-                    <button type="button" className="splited__questions btn btn-light">{item}</button>
+                <p className='guide'>Double click on a word to add a dropdown</p>
+                {data.length > 0 && data.map((item, index) => (
+                    <button type="button" className="splited__questions btn btn-light" name={item} id={index} onClick={(e) => { handleOption(e); }}>{item}</button>
                 ))}
+                <div className='for'>
+                    {optionArr.length > 0 && <DropD keys={currentWord} data={optionArr} choosenOption={handleChoosedOption} />}
+                </div>
 
-                <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Submit this statement</button>
+                {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={currentWord} />}
+
+                <section className="splited__section" id='draft'>
+                <p className='guide'>This is a draft that is going to be updated as you update dropdown</p>
+                    {updatedStatement.length > 0 && updatedStatement.map((item) => (
+                        <button type="button" className="splited__questions btn btn-light">{item}</button>
+                    ))}
+
+                    <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Submit this statement</button>
+                </section>
             </section>
-        </section>
+        </>
     )
 }
 

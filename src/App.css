@@ -163,6 +163,31 @@ textarea {
   color: #fff;
 }
 
-.statement_nav h1{
+.statement_nav h1 {
   font-size: 2rem;
+}
+
+.guide {
+  color: rgb(77, 159, 146);
+}
+
+.option{
+  margin: 4rem 0;
+}
+
+#draft{
+  margin-top: 2rem;
+}
+
+#for{
+  margin: 2rem 0;
+}
+
+.for{
+  display: none !important;
+}
+
+#lname{
+  display: block;
+  margin-top: 1rem;
 }
