@@ -51,11 +51,10 @@ function Main() {
                             <option value="sports">Sports</option>
                         </select>
                     </label>
-                    <Table responsive>
+                    <Table striped bordered hover responsive>
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Category name</th>
                                 <th>Questions</th>
                                 <th></th>
                             </tr>
@@ -64,12 +63,10 @@ function Main() {
                             {(data.length > 0) && (data.map((Item, index) => (
                                 <tr key={Item.id}>
                                     <td>{index + 1}</td>
-                                    <td>{Item.category}
-                                    </td>
                                     <td>{Item.question}</td>
                                     <td>
-                                        <Link to={`answer/${Item.id}`} variant='primary'>Find answer</Link>
-                                        <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} class="btn btn-primary" variant='primary'>Edit</Link>
+                                        <Link to={`answer/${Item.id}`}  className="btn btn-link text-decoration-none">Find answer</Link>
+                                        <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>Edit</Link>
                                     </td>
                                 </tr>
                             )))}
