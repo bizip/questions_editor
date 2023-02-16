@@ -156,8 +156,13 @@ textarea {
 .statement_nav {
   display: flex;
   justify-content: center;
-  height: 4rem;
+  align-items: center;
+  height: 5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
   background-color: rgb(77, 159, 146);
   color: #fff;
+}
+
+.statement_nav h1{
+  font-size: 2rem;
 }

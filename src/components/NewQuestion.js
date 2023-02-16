@@ -56,9 +56,9 @@ function NewQuestion() {
         <div>
             <div>
                 <section className='new__statement'>
-                    <div className='statement_nav'>
-                    <h1>Create A new Statement</h1>
-                </div>
+                    <div className={classes.statement_nav}>
+                        <h1>Create A new Statement</h1>
+                    </div>
                     <form onSubmit={handleSubmit}>
                         <label className={classes.label}>
                             <select onChange={(e) => {
@@ -70,8 +70,10 @@ function NewQuestion() {
                                 <option value="sports">Sports</option>
                             </select>
                         </label>
-                        <textarea onChange={(e) => { setData(e.target.value); }} />
-                        <Link to='/options' state={{ statement:data, category:changeCategory }} class="btn btn-primary" variant='primary'>Submit</Link>
+                        <div className={classes.textbox}>
+                            <textarea onChange={(e) => { setData(e.target.value); }} />
+                            <Link to='/options' state={{ statement: data, category: changeCategory }} class={`${classes.submit__btn} btn`} variant='primary'>Submit</Link>
+                        </div>
                     </form>
                 </section>
             </div>
