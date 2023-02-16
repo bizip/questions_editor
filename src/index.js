@@ -10,6 +10,7 @@ import Answer from './components/Answer';
 import EditStatement from './components/EditStatement';
 import NewStatement from './pages/NewStatement';
 import AddDropdowns from './pages/AddDropdowns';
+import Edit from './pages/Edit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,7 +19,7 @@ root.render(
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/options" element={<AddDropdowns />} />
-        <Route exact path="/edit" element={<EditStatement />} />
+        <Route exact path="/edit" element={<Edit />} />
         <Route exact path="/new" element={<NewStatement />} />
         <Route exact path="answer/:id" element={<Answer />}/>
       </Routes>
