@@ -1,7 +1,8 @@
 import { useState, useId, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import Sidebar from './Sidebar';
+import classes from './NewStatement.module.css';
+import styles from '../pages/Home.module.css';
 
 function NewQuestion() {
     const [data, setData] = useState({});
@@ -53,16 +54,16 @@ function NewQuestion() {
 
     return (
         <div>
-            <Sidebar />
-            <div className="App">
+            <div>
                 <section className='new__statement'>
+                    <div className='statement_nav'>
                     <h1>Create A new Statement</h1>
+                </div>
                     <form onSubmit={handleSubmit}>
-                        <label>
-                            Select a category:
+                        <label className={classes.label}>
                             <select onChange={(e) => {
                                 setChangeCategory(e.target.value);
-                            }}>
+                            }} className="dropdowns">
                                 <option value="" >Select a category</option>
                                 <option value="health">Health</option>
                                 <option value="education">Education</option>
