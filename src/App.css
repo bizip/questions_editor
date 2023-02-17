@@ -153,6 +153,13 @@ textarea {
   padding: .7rem;
 }
 
+.edit_dropdowns{
+  width: 14.5rem;
+  border-radius: 10px;
+  background-color: white;
+  padding: .5rem;
+}
+
 .statement_nav {
   display: flex;
   justify-content: center;
@@ -171,19 +178,23 @@ textarea {
   color: rgb(77, 159, 146);
 }
 
-.option{
+.option {
   margin: 4rem 0;
 }
 
-#draft{
+#draft {
   margin-top: 2rem;
 }
 
-#for{
+#for {
   margin: 2rem 0;
 }
 
-#lname{
+#lname {
   display: block;
   margin-top: 1rem;
+}
+
+.option__list {
+  margin: 1rem 0;
 }

@@ -19,8 +19,8 @@ const Model = (props) => {
 
   return (
     <div>
-      <Button onClick={() => setLgShow(true)}>
-        Choose option for &nbsp;
+      <Button className='submit__btn btn' onClick={() => setLgShow(true)}>
+        Add options for &nbsp;
         {props.name}
       </Button>
       <Modal

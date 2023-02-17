@@ -11,7 +11,6 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const EditStatement = () => {
-  const [text, setText] = useState("Copy this text to clipboard");
   const [isCopied, setIsCopied] = useState(false);
   const [popupValue, setPopupVAlue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +23,7 @@ const EditStatement = () => {
 
   })
 
-  const [solution, setSolution] = useState('');
+  const [solution, setSolution] = useState('Loading ...');
   const [statementData1, setStatementData1] = useState({
     category: '',
     question: '',
@@ -80,6 +79,7 @@ const EditStatement = () => {
     });
 
     setSolution(response.data.choices[0].text);
+    console.log(response.data.choices[0].text,"2222222222222222222222")
   }
 
   useEffect(() => {
@@ -99,7 +99,6 @@ const EditStatement = () => {
       dropdown: dropdowns
     })
 
-    console.log(dropdowns, "you are trying this")
     setQuestionData(statementData);
     setOptionArr(statementData.dropdown[currentIndex])
   }, [])
@@ -133,7 +132,7 @@ const EditStatement = () => {
               <h4 className="title">Here is the answer</h4>
             </div>
             <div className="card-body">
-              <p>{text}</p>
+              <p>{solution}</p>
               {isCopied ? (
                 <p className="success-msg">Text copied to clipboard</p>
               ) : null}
