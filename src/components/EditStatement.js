@@ -79,7 +79,6 @@ const EditStatement = () => {
     });
 
     setSolution(response.data.choices[0].text);
-    console.log(response.data.choices[0].text,"2222222222222222222222")
   }
 
   useEffect(() => {

@@ -11,6 +11,7 @@ import EditStatement from './components/EditStatement';
 import NewStatement from './pages/NewStatement';
 import AddDropdowns from './pages/AddDropdowns';
 import Edit from './pages/Edit';
+import FindSlution from './pages/FindSolution';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,7 +22,7 @@ root.render(
         <Route exact path="/options" element={<AddDropdowns />} />
         <Route exact path="/edit" element={<Edit />} />
         <Route exact path="/new" element={<NewStatement />} />
-        <Route exact path="answer/:id" element={<Answer />}/>
+        <Route exact path="answer/:id" element={<FindSlution />}/>
       </Routes>
     </BrowserRouter>,
   </React.StrictMode>,

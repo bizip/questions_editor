@@ -27,6 +27,14 @@ textarea {
   flex-direction: column;
 }
 
+.answer{
+  padding: 2rem 2%;
+}
+
+.statement{
+  margin: 1rem 0;
+}
+
 .form>* {
   margin: 0 1rem;
 }
