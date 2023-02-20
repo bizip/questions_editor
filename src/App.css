@@ -27,11 +27,11 @@ textarea {
   flex-direction: column;
 }
 
-.answer{
+.answer {
   padding: 2rem 2%;
 }
 
-.statement{
+.statement {
   margin: 1rem 0;
 }
 
@@ -161,7 +161,7 @@ textarea {
   padding: .7rem;
 }
 
-.edit_dropdowns{
+.edit_dropdowns {
   width: 14.5rem;
   border-radius: 10px;
   background-color: white;
@@ -205,4 +205,73 @@ textarea {
 
 .option__list {
   margin: 1rem 0;
+}
+
+.top_nav {
+  background-color: rgb(77, 159, 146);
+  padding: 1% 5%;
+  display: flex;
+
+}
+
+.top_nav img {
+  width: 6rem;
+  height: 5rem;
+  border-radius: .5rem;
+}
+
+.choice_container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.landing_title {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+}
+
+.choice {
+  position: absolute;
+  border: 2px solid rgb(77, 159, 146);
+  ;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  padding: .5rem 0;
+  border-radius: .5rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,30%);
+
+}
+
+.choice__link {
+  background-color: rgb(77, 159, 146);
+  color: #fff;
+  width: 50%;
+  padding: 1rem .5rem;
+  margin: .5rem 0;
+  text-decoration: none;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  justify-content: center;
+  display: flex;
+}
+
+.choice__link:hover{
+  background-color: rgba(14, 108, 92, 0.837);
+  color: #fff;
 }
