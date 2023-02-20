@@ -1,15 +1,15 @@
 import React from 'react'
-import Main from '../components/Main';
+import EditStatement from '../components/EditStatement';
 import Sidebar from '../components/Sidebar';
 import styles from "./Home.module.css";
 
-const Home = () => {
+const Edit = () => {
   return (
     <section className={styles.home_container}>
       <div className={styles.sidebar}><Sidebar /></div>
-      <div className={styles.main_section}><Main /></div>
+      <div className={styles.main_section}><EditStatement /></div>
     </section>
   )
 }
 
-export default Home;
+export default Edit;

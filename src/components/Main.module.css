@@ -1,0 +1,10 @@
+.main section {
+    padding: 2rem 2%;
+}
+
+.label {
+    padding:1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

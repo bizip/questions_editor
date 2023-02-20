@@ -56,7 +56,7 @@ function App() {
 // import React, { useState } from 'react';
 
 // const Question = () => {
-//   const [selectedWord, setSelectedWord] = useState('');
+//   const [selectedWord, setSelectedWord] =npm start useState('');
 //   const [showAlternatives, setShowAlternatives] = useState(false);
 
 //   const handleClick = (word) => {
