@@ -12,6 +12,9 @@ import NewStatement from './pages/NewStatement';
 import AddDropdowns from './pages/AddDropdowns';
 import Edit from './pages/Edit';
 import FindSlution from './pages/FindSolution';
+import ClinicalTrials from './components/ClinicalTrials/ClinicalTrials';
+import RegulatoryAfairs from './components/RegulatoryAfairs/RegulatoryAfairs';
+import PhalmacovIgilance from './components/PhalmaCovIgilance/PhalmacovIgilance';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +22,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/clinicaltrials" element={<ClinicalTrials />} />
+        <Route exact path="/regulatoryafairs" element={<RegulatoryAfairs />} />
+        <Route exact path="/pharmacovigilance" element={<PhalmacovIgilance />} />
         <Route exact path="/options" element={<AddDropdowns />} />
         <Route exact path="/edit" element={<Edit />} />
         <Route exact path="/new" element={<NewStatement />} />
