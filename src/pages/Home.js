@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/footer/Footer';
+import img from '../img/category.svg';
 
 const Home = () => {
   return (
@@ -12,13 +14,18 @@ const Home = () => {
         </div>
       </nav>
       <div className='choice_container'>
+        <div className='landing_image'>
+          <img src={img} alt='medecine' />
+        </div>
+        <div className='choice_card'>
         <div className='choice'>
           <Link to='/clinicaltrials' className="choice__link">Clinical Trials</Link>
           <Link to='/regulatoryafairs' className="choice__link">Regulatory Afairs</Link>
           <Link to='/pharmacovigilance' className="choice__link">Pharmacovigilance</Link>
         </div>
-      </div>
-
+        </div>
+        </div>
+        <Footer />
     </section>
   )
 }
