@@ -70,7 +70,6 @@ const Answer = () => {
                             >
                                 <button className="btn">COPY</button>
                             </CopyToClipboard>
-
                         </div>
                     </div>
                 </div>

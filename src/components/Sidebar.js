@@ -13,9 +13,10 @@ function Sidebar() {
   return (
     <div className={styles.sidebar_content}>
 
-      <div className={styles.sidebar_header_container}>
+
+      <Link to="/" className={styles.sidebar_header_container}>
       <img src='https://media.licdn.com/dms/image/C560BAQGghHrBNT18Ww/company-logo_200_200/0/1524310864696?e=1684368000&v=beta&t=aD2xtdD4R2yH2bQrd8RRkveyW98oUzJzy7c0Ien2y-c' alt='logo' />
-      </div>
+      </Link>
       <nav>
         <ul>
           <li><Link to="/" className={currentLink === 0 ? 'active' : ''}

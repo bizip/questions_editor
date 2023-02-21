@@ -8,3 +8,14 @@
     display: flex;
     justify-content: center;
 }
+
+.loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.loader >*{
+    color: rgb(77, 159, 146);
+}
