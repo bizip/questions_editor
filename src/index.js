@@ -34,7 +34,7 @@ root.render(
         <Route exact path="/options" element={<AddDropdowns />} />
         <Route exact path="/edit" element={<Edit />} />
         <Route exact path="/new" element={<NewStatement />} />
-        <Route exact path="answer/:id" element={<FindSlution />} />
+        <Route exact path="/clinicaltrials/clinicaltrialstudyprotocal/answer/:id" element={<FindSlution />} />
       </Routes>
     </BrowserRouter>,
   </React.StrictMode>,

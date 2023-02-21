@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from '../utils/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
-import { Dna } from  'react-loader-spinner'
+import { Puff } from  'react-loader-spinner'
 import styles from "./Main.module.css";
 
 function Main() {
@@ -37,14 +37,16 @@ function Main() {
                 <h1>Statement List</h1>
             </div>
             {data.length < 1 ? <div className={styles.loader}>
-                <Dna
-                    visible={true}
-                    height="80"
-                    width="80"
-                    ariaLabel="dna-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="dna-wrapper"
-                />
+            <Puff
+            height="80"
+            width="80"
+            radius={1}
+            color="rgb(77, 159, 146)"
+            ariaLabel="puff-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
 
             </div> : <section>
                 <form onSubmit={handleFormSubmit}>
