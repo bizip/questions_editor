@@ -3,6 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from '../utils/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
+import { Dna } from  'react-loader-spinner'
 import styles from "./Main.module.css";
 
 function Main() {
@@ -16,7 +17,7 @@ function Main() {
     };
 
     const handleSyncData = async () => {
-        const querySnapshot = await getDocs(collection(db, `categories/${choseCategory}/questions`));
+        const querySnapshot = await getDocs(collection(db, `categories/health/questions`));
         querySnapshot.forEach((doc) => {
             const tempDoc = []
             querySnapshot.forEach((doc) => {
@@ -26,31 +27,27 @@ function Main() {
         });
     };
     useEffect(() => {
-        if (choseCategory !== "") {
-            handleSyncData();
-        }
-    }, [choseCategory]);
-    const handleChange = (e) => {
-        setChooseCategory(e.target.value)
-    }
+        handleSyncData();
+    }, []);
 
     return (
+
         <div className={styles.main}>
             <div className='statement_nav'>
                 <h1>Statement List</h1>
             </div>
-            <section>
+            {data.length < 1 ? <div className={styles.loader}>
+                <Dna
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="dna-wrapper"
+                />
+
+            </div> : <section>
                 <form onSubmit={handleFormSubmit}>
-                    <label className={styles.label}>
-                        <select value={choseCategory} className="dropdowns" onChange={(e) => {
-                            handleChange(e)
-                        }}>
-                            <option value="">Select a category</option>
-                            <option value="health">Health</option>
-                            <option value="education">Education</option>
-                            <option value="sports">Sports</option>
-                        </select>
-                    </label>
                     <Table striped bordered hover responsive>
                         <thead>
                             <tr>
@@ -65,7 +62,7 @@ function Main() {
                                     <td>{index + 1}</td>
                                     <td>{Item.question}</td>
                                     <td>
-                                        <Link to={`answer/${Item.id}`}  className="btn btn-link text-decoration-none">Find answer</Link>
+                                        <Link to={`answer/${Item.id}`} className="btn btn-link text-decoration-none">Find answer</Link>
                                         <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>Edit</Link>
                                     </td>
                                 </tr>
@@ -74,6 +71,7 @@ function Main() {
                     </Table>
                 </form>
             </section>
+            }
         </div>
     );
 }
