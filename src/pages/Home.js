@@ -20,8 +20,8 @@ const Home = () => {
         <div className='choice_card'>
         <div className='choice'>
           <Link to='/clinicaltrials' className="choice__link">Clinical Trials</Link>
-          <Link to='/regulatoryafairs' className="choice__link">Regulatory Affairs</Link>
-          <Link to='/pharmacovigilance' className="choice__link">Pharmacovigilance</Link>
+          <Link to='/regulatoryafairs' className="choice__link" eventKey="disabled">Regulatory Affairs</Link>
+          <Link to='/pharmacovigilance' className="choice__link" eventKey="disabled">Pharmacovigilance</Link>
         </div>
         </div>
         </div>
