@@ -21,9 +21,9 @@ const ClinicalTrials = () => {
             </div>
             <div className='choice_card'>
             <div className='choice'>
-            <Link to='/clinicaltrials/clinicaltrialstudyprotocal' className="choice__link">Clinicaltrial Study Protocal</Link>
-            <Link to='/clinicaltrials/statudystartup' className="choice__link">Statudy Start Up</Link>
-            <Link to='/clinicaltrials/clinicaltrialapplication' className="choice__link">Clinical Trial Application</Link>
+            <Link to='/clinicaltrials/clinicaltrialstudyprotocal' className="choice__link">Clinical trial Study Protocol</Link>
+            <Link to='/clinicaltrials/statudystartup' className="choice__link" style={{pointerEvents: 'none'}}>Study Start-Up</Link>
+            <Link to='/clinicaltrials/clinicaltrialapplication' className="choice__link" style={{pointerEvents: 'none'}}>Clinical Trial Application</Link>
         </div>
             </div>
             </div>
