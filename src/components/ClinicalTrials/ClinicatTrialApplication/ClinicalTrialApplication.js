@@ -1,9 +1,8 @@
-import React from 'react'
-import Main from "../../Main";
+import React from 'react';
 
 const ClinicalTrialApplication = () => {
   return (
-    <Main />
+    <h1>ClinicalTrialApplication</h1>
   )
 }
 
