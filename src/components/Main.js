@@ -54,7 +54,7 @@ function Main() {
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Questions</th>
+                                <th>Statement</th>
                                 <th></th>
                             </tr>
                         </thead>
