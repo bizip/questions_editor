@@ -19,7 +19,7 @@ function Sidebar() {
       </Link>
       <nav>
         <ul>
-          <li><Link to="/" className={currentLink === 0 ? 'active' : ''}
+          <li><Link to="/clinicaltrials/clinicaltrialstudyprotocal" className={currentLink === 0 ? 'active' : ''}
             onClick={() => handleClick(0)}>Asked Questions</Link></li>
           <li><Link to="/new" className={currentLink === 1 ? 'active' : ''}
             onClick={() => handleClick(1)}>Ask Questions</Link></li>

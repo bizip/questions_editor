@@ -28,7 +28,7 @@ const Answer = () => {
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: docSnap.data().question,
-                max_tokens: 100,
+                max_tokens: 10000,
                 temperature: 0,
             });
             setSolution(response.data.choices[0].text);

@@ -53,7 +53,6 @@ function Main() {
                     <Table striped bordered hover responsive>
                         <thead>
                             <tr>
-                                <th>No</th>
                                 <th>Statement</th>
                                 <th></th>
                             </tr>
@@ -61,7 +60,6 @@ function Main() {
                         <tbody>
                             {(data.length > 0) && (data.map((Item, index) => (
                                 <tr key={Item.id}>
-                                    <td>{index + 1}</td>
                                     <td>{Item.question}</td>
                                     <td>
                                         <Link to={`answer/${Item.id}`} className="btn btn-link text-decoration-none">Find answer</Link>

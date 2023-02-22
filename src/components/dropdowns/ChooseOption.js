@@ -73,7 +73,7 @@ const ChooseOption = () => {
         })
             .then(() => {
                 alert("new question added successfully!")
-                navigate("/")
+                navigate("/clinicaltrials/clinicaltrialstudyprotocal")
             })
             .catch(err => {
                 console.log(err)

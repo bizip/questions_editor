@@ -9,7 +9,7 @@ function NewQuestion() {
     const [result, setResult] = useState([]);
     const [testResult, setTestResult] = useState([]);
     const [isNew, setIsNew] = useState(true);
-    const [changeCategory, setChangeCategory] = useState("");
+    const [changeCategory, setChangeCategory] = useState("health");
     const [storage, setStorage] = useState([]);
     const [statement, setSatatement] = useState([]);
     const [questionData, setQuestionData] = useState([]);
@@ -60,16 +60,6 @@ function NewQuestion() {
                         <h1>Create A new Statement</h1>
                     </div>
                     <form onSubmit={handleSubmit}>
-                        <label className={classes.label}>
-                            <select onChange={(e) => {
-                                setChangeCategory(e.target.value);
-                            }} className="dropdowns">
-                                <option value="" >Select a category</option>
-                                <option value="health">Health</option>
-                                <option value="education">Education</option>
-                                <option value="sports">Sports</option>
-                            </select>
-                        </label>
                         <div className={classes.textbox}>
                             <textarea onChange={(e) => { setData(e.target.value); }} />
                             <Link to='/options' state={{ statement: data, category: changeCategory }} class={`${classes.submit__btn} btn`} variant='primary'>Submit</Link>

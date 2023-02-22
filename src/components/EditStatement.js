@@ -74,7 +74,7 @@ const EditStatement = () => {
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: updatedStatement.join(" "),
-      max_tokens: 100,
+      max_tokens: 1000,
       temperature: 0,
     });
 
