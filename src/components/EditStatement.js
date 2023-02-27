@@ -114,8 +114,9 @@ const EditStatement = () => {
   }, [])
   return (
     <>
-     
+
       <section className='drop_sections'>
+        <h2>Configuration</h2>  
         {Object.keys(dropdowns).map(item => {
           if (item === '8') {
             if (dropdowns[item].length > 0) {
@@ -292,8 +293,8 @@ const EditStatement = () => {
 
         <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Find an answer</button>
       </section>
-      <section dangerouslySetInnerHTML={{__html: solution}} className="ans">
-    </section>
+      <section dangerouslySetInnerHTML={{ __html: solution }} className="ans">
+      </section>
     </>
   )
 }

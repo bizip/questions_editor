@@ -334,9 +334,10 @@ footer {
   flex-direction: column;
 }
 
-.ans{
+.ans,
+.drop_sections{
   padding:3% 2%;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .ans h1,
