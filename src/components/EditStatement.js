@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Table } from 'react-bootstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DropD from './Dropdowns';
@@ -40,9 +41,17 @@ const EditStatement = () => {
       };
     });
   };
+  const responseString = `Study Protocol 1. Title: A Phase 2a Unrandomized Double Blind Active Controlled Trial Using Zolgensma 2. Objectives: The primary objective of this study is to evaluate the efficacy and safety of Zolgensma in patients with a specific disease. The secondary objectives are to assess the quality of life of patients and to measure the rate of disease progression. 3. Study Design: This is a phase 2a unrandomized double blind active controlled trial using Zolgensma. 4. Study Population: The study population will include 40 patients aged 40-50 years old with the specific disease. 5. Exclusion Criteria: Patients with any of the following conditions will be excluded from the study: • Pregnant or lactating women • Patients with any other serious medical condition • Patients with any known allergies to Zolgensma • Patients with any known contraindications to Zolgensma 6. Treatment: The treatment will be administered intravenously over a period of one week. 7. Primary Outcome Measure: The primary outcome measure will be the rate of disease progression. 8. Secondary Outcome Measures: The secondary outcome measures will include quality of life assessments using imaging techniques. 9. Data Analysis: Data will be analysed using Cox proportional hazard models with a 0.001 significance level and will be adjusted using a false discovery rate. 10. Data Management and Monitoring: Data management and monitoring will be done by the principal investigator. Data quality and accuracy will be monitored through source data. 11. Study Duration: The study will last 24 weeks with an estimated completion date of completion-date. 12. Budget: The PAREXEL will provide a budget of $100 000 for this study.`
+  // let word ="Study Protocol";
+  // const clippedString = responseString.replace(word, "").trim();
+  // const rows = responseString.split("\n").map((row) => row.split(": "));
+  // console.log(rows, "+++++++++")
+  let items = responseString.split(/\d+\.\s+/).slice(1);
+  // console.log(items, "ITEMMMMMMMMMM");
 
   const location = useLocation()
   const { statement, category, id, dropdowns } = location.state;
+
   const handleOption = (e) => {
     const clickedWord = e.target.name;
     const index = e.target.id;
@@ -67,17 +76,19 @@ const EditStatement = () => {
 
   }
 
+  const handleDirectChoosedOption = (e) => {
+    const newArray = [...updatedStatement];
+    newArray[e.target.name] = e.target.value;
+    setUpdatedStatement(newArray);
+  }
   const handleSubmitStatement = async () => {
-
-
 
     const response = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: updatedStatement.join(" "),
+      prompt: `${updatedStatement.join(" ")}. Make it an HTML section`,
       max_tokens: 1000,
-      temperature: 0,
+      temperature: 1,
     });
-
     setSolution(response.data.choices[0].text);
   }
 
@@ -103,57 +114,186 @@ const EditStatement = () => {
   }, [])
   return (
     <>
-      <div className="statement_nav">
-        <h1>Choose a word to edit</h1>
-      </div>
-      <section className="splited__section">
-        {data.length > 0 && data.map((item, index) => (
-          <button type="button" className="splited__questions btn btn-light" name={item} id={index} onClick={(e) => { handleOption(e); }}>{item}</button>
-        ))}
-
-        {optionArr.length > 0 && <DropD keys={currentWord} data={optionArr} choosenOption={handleChoosedOption} className="top" />}
-
-        {isOpen && <Model isOpen={handleIsOpen} onSaveData={handleOnSaveData} name={currentWord} />}
-
-        <section className="splited__section">
-          {updatedStatement.length > 0 && updatedStatement.map((item) => (
-            <button type="button" className="splited__questions btn btn-light">{item}</button>
-          ))}
-
-          <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Find an answer</button>
-        </section>
-
-
-
-        <div className="App-container">
-          <div className="card">
-            <div className="card-header">
-              <h4 className="title">Here is the answer</h4>
+     
+      <section className='drop_sections'>
+        {Object.keys(dropdowns).map(item => {
+          if (item === '8') {
+            if (dropdowns[item].length > 0) {
+              return <div className='opt_box'>
+                <label>Which phase is the clinical trial?</label>
+                <select className="edit_dropdowns" name={8} id="questions" onChange={handleDirectChoosedOption}>
+                  {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item} >{item}</option>))}
+                </select>
+              </div>
+            }
+          } else if ((item === '9')) {
+            return <div className='opt_box'>
+              <label> What type of randomization?</label>
+              <select className="edit_dropdowns" name={9} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item} >{item}</option>))}
+              </select>
             </div>
-            <div className="card-body">
-              <p>{solution}</p>
-              {isCopied ? (
-                <p className="success-msg">Text copied to clipboard</p>
-              ) : null}
-
-              <CopyToClipboard
-                text={solution}
-                onCopy={() => {
-                  setIsCopied(true);
-                  setTimeout(() => {
-                    setIsCopied(false);
-                  }, 1000);
-                }}
-              >
-                <button className="btn">COPY</button>
-              </CopyToClipboard>
-
+          } else if ((item === '10')) {
+            return <div className='opt_box'>
+              <label> What type of blinding?</label>
+              <select className="edit_dropdowns" name={10} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
             </div>
-          </div>
-        </div>
+          } else if ((item === '11')) {
+            return <div className='opt_box'>
+              <label>  What type of control?</label>
+              <select className="edit_dropdowns" name={11} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '14')) {
+            return <div className='opt_box'>
+              <label>Intervention Name</label>
+              <select className="edit_dropdowns" name={14} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '16')) {
+            return <div className='opt_box'>
+              <label>How many patients are participating in the study?</label>
+              <select className="edit_dropdowns" name={16} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '21')) {
+            return <div className='opt_box'>
+              <label>How often will data be collected?</label>
+              <select className="edit_dropdowns" name={21} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '23')) {
+            return <div className='opt_box'>
+              <label>How will data be collected?</label>
+              <select className="edit_dropdowns" name={23} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '27')) {
+            return <div className='opt_box'>
+              <label>What is the minimum age requirement for participants?</label>
+              <select className="edit_dropdowns" name={27} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '31')) {
+            return <div className='opt_box'>
+              <label>How often must a participant experience [disease] to be eligible for the study?</label>
+              <select className="edit_dropdowns" name={31} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '35')) {
+            return <div className='opt_box'>
+              <label>Are there any exclusion criteria for the study?</label>
+              <select className="edit_dropdowns" name={35} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '40')) {
+            return <div className='opt_box'>
+              <label>How will the intervention be administered?</label>
+              <select className="edit_dropdowns" name={40} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '41')) {
+            return <div className='opt_box'>
+              <label>How often will the intervention be administered?</label>
+              <select className="edit_dropdowns" name={41} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '44')) {
+            return <div className='opt_box'>
+              <label>For how long will the treatment be administered</label>
+              <select className="edit_dropdowns" name={44} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '52')) {
+            return <div className='opt_box'>
+              <label>Primary outcome to be measured</label>
+              <select className="edit_dropdowns" name={52} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '61')) {
+            return <div className='opt_box'>
+              <label>Primary outcome assessment mode</label>
+              <select className="edit_dropdowns" name={61} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '67')) {
+            return <div className='opt_box'>
+              <label>Statistics method</label>
+              <select className="edit_dropdowns" name={67} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '70')) {
+            return <div className='opt_box'>
+              <label>Significance level</label>
+              <select className="edit_dropdowns" name={70} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '79')) {
+            return <div className='opt_box'>
+              <label>Correction method</label>
+              <select className="edit_dropdowns" name={79} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '89')) {
+            return <div className='opt_box'>
+              <label>Who will manage and monitor data?</label>
+              <select className="edit_dropdowns" name={89} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '98')) {
+            return <div className='opt_box'>
+              <label>Data quality and accuracy method</label>
+              <select className="edit_dropdowns" name={98} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '103')) {
+            return <div className='opt_box'>
+              <label>Study time length</label>
+              <select className="edit_dropdowns" name={103} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '111')) {
+            return <div className='opt_box'>
+              <label>Budget provider name</label>
+              <select className="edit_dropdowns" name={111} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          } else if ((item === '117')) {
+            return <div className='opt_box'>
+              <label>Study Budget</label>
+              <select className="edit_dropdowns" name={117} id="questions" onChange={handleDirectChoosedOption}>
+                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
+              </select>
+            </div>
+          }
+        })}
 
+        <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Find an answer</button>
       </section>
-
+      <section dangerouslySetInnerHTML={{__html: solution}} className="ans">
+    </section>
     </>
   )
 }

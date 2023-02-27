@@ -329,3 +329,18 @@ footer {
     width: 80%;
   }
 }
+.opt_box{
+  display: flex;
+  flex-direction: column;
+}
+
+.ans{
+  padding:3% 2%;
+  font-size: 1.4rem;
+}
+
+.ans h1,
+h2{
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
