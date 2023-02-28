@@ -62,7 +62,6 @@ function Main() {
                                 <tr key={Item.id}>
                                     <td>{Item.question}</td>
                                     <td>
-                                        <Link to={`answer/${Item.id}`} className="btn btn-link text-decoration-none">Find answer</Link>
                                         <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>Edit</Link>
                                     </td>
                                 </tr>

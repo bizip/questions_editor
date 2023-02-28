@@ -82,6 +82,7 @@ const EditStatement = () => {
     setUpdatedStatement(newArray);
   }
   const handleSubmitStatement = async () => {
+    console.log(updatedStatement, "yes you made it");
 
     const response = await openai.createCompletion({
       model: "text-davinci-003",
@@ -112,6 +113,7 @@ const EditStatement = () => {
     setQuestionData(statementData);
     setOptionArr(statementData.dropdown[currentIndex])
   }, [])
+
   return (
     <>
 
@@ -151,13 +153,7 @@ const EditStatement = () => {
           } else if ((item === '14')) {
             return <div className='opt_box'>
               <label>Intervention Name</label>
-              <form>
-                <input type="text" id="numberInput" placeholder='eg: covax' name="numberInput" />
-                <button type="submit">Submit</button>
-              </form>
-              <select className="edit_dropdowns" name={14} id="questions" onChange={handleDirectChoosedOption}>
-                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
-              </select>
+              <input type="text" className="edit_dropdowns" id="numberInput" placeholder='eg: covax' name={14} onChange={handleDirectChoosedOption} />
             </div>
           } else if ((item === '16')) {
             return <div className='opt_box'>

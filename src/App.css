@@ -306,42 +306,58 @@ footer {
   .choice_container {
     height: 80vh;
     display: grid;
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
   }
 
   .landing_image {
     display: none;
   }
 
-  .choice_card{
+  .choice_card {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
   }
 
-  .choice{
+  .choice {
     width: 90%;
     margin-top: 0;
   }
 
-  .choice__link{
+  .choice__link {
     width: 80%;
   }
 }
-.opt_box{
+
+.opt_box {
   display: flex;
   flex-direction: column;
 }
 
 .ans,
-.drop_sections{
-  padding:3% 2%;
+.drop_sections {
+  padding: 3% 2%;
   font-size: 1.2rem;
 }
 
 .ans h1,
-h2{
+h2 {
   font-size: 1.3rem;
   text-transform: uppercase;
+}
+
+
+.opt_box {
+  margin: 1rem 0;
+}
+
+.with__form{
+  display: flex;
+  flex-direction: column;
+}
+
+.with__form button{
+max-width: fit-content;
+margin: .5rem 0;
 }
