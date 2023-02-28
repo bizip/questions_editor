@@ -158,9 +158,7 @@ const EditStatement = () => {
           } else if ((item === '16')) {
             return <div className='opt_box'>
               <label>How many patients are participating in the study?</label>
-              <select className="edit_dropdowns" name={16} id="questions" onChange={handleDirectChoosedOption}>
-                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
-              </select>
+              <input type="text" className="edit_dropdowns" id="numberInput" placeholder='eg: 16' name={16} onChange={handleDirectChoosedOption} />
             </div>
           } else if ((item === '21')) {
             return <div className='opt_box'>
@@ -179,16 +177,12 @@ const EditStatement = () => {
           } else if ((item === '27')) {
             return <div className='opt_box'>
               <label>What is the minimum age requirement for participants?</label>
-              <select className="edit_dropdowns" name={27} id="questions" onChange={handleDirectChoosedOption}>
-                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
-              </select>
+              <input type="text" className="edit_dropdowns" id="numberInput" placeholder='eg: 27' name={27} onChange={handleDirectChoosedOption} />
             </div>
           } else if ((item === '31')) {
             return <div className='opt_box'>
               <label>How often must a participant experience [disease] to be eligible for the study?</label>
-              <select className="edit_dropdowns" name={31} id="questions" onChange={handleDirectChoosedOption}>
-                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
-              </select>
+              <input type="text" className="edit_dropdowns" id="numberInput" placeholder='eg: 3 episodes' name={31} onChange={handleDirectChoosedOption} />
             </div>
           } else if ((item === '35')) {
             return <div className='opt_box'>
