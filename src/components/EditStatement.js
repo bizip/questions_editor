@@ -21,6 +21,7 @@ const EditStatement = () => {
   const [optionArr, setOptionArr] = useState([]);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [updatedStatement, setUpdatedStatement] = useState([]);
   const [questionData, setQuestionData] = useState({
 
@@ -84,6 +85,7 @@ const EditStatement = () => {
     setUpdatedStatement(newArray);
   }
   const handleSubmitStatement = async () => {
+    setHasSubmitted(true);
     setIsLoading(true);
     const response = await openai.createCompletion({
       model: "text-davinci-003",
@@ -119,7 +121,7 @@ const EditStatement = () => {
   return (
     <>
 
-      <section className='drop_sections'>
+     {!hasSubmitted && <section className='drop_sections'>
         <h2>Configuration</h2>
         {Object.keys(dropdowns).map(item => {
           if (item === '8') {
@@ -289,6 +291,7 @@ const EditStatement = () => {
 
         <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Find an answer</button>
       </section>
+     }
       {isLoading?<div className="loader">
       <Puff
       height="80"
