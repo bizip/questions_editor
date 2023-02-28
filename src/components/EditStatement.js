@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { Puff } from 'react-loader-spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DropD from './Dropdowns';
 import Model from './Model';
@@ -19,12 +20,13 @@ const EditStatement = () => {
   const [currentIndex, setCurreIndex] = useState(0);
   const [optionArr, setOptionArr] = useState([]);
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [updatedStatement, setUpdatedStatement] = useState([]);
   const [questionData, setQuestionData] = useState({
 
   })
 
-  const [solution, setSolution] = useState('Loading ...');
+  const [solution, setSolution] = useState('');
   const [statementData1, setStatementData1] = useState({
     category: '',
     question: '',
@@ -82,15 +84,15 @@ const EditStatement = () => {
     setUpdatedStatement(newArray);
   }
   const handleSubmitStatement = async () => {
-    console.log(updatedStatement, "yes you made it");
-
+    setIsLoading(true);
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `${updatedStatement.join(" ")}. Make it an HTML section`,
       max_tokens: 1000,
-      temperature: 1,
+      temperature: 0,
     });
     setSolution(response.data.choices[0].text);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -287,8 +289,21 @@ const EditStatement = () => {
 
         <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Find an answer</button>
       </section>
-      <section dangerouslySetInnerHTML={{ __html: solution }} className="ans">
+      {isLoading?<div className="loader">
+      <Puff
+      height="80"
+      width="80"
+      radius={1}
+      color="rgb(77, 159, 146)"
+      ariaLabel="puff-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+      visible={true}
+    />
+    </div>: <section dangerouslySetInnerHTML={{ __html: solution }} className="ans">
       </section>
+      
+      }
     </>
   )
 }
