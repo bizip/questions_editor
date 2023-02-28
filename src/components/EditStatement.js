@@ -116,7 +116,7 @@ const EditStatement = () => {
     <>
 
       <section className='drop_sections'>
-        <h2>Configuration</h2>  
+        <h2>Configuration</h2>
         {Object.keys(dropdowns).map(item => {
           if (item === '8') {
             if (dropdowns[item].length > 0) {
@@ -151,6 +151,10 @@ const EditStatement = () => {
           } else if ((item === '14')) {
             return <div className='opt_box'>
               <label>Intervention Name</label>
+              <form>
+                <input type="text" id="numberInput" placeholder='eg: covax' name="numberInput" />
+                <button type="submit">Submit</button>
+              </form>
               <select className="edit_dropdowns" name={14} id="questions" onChange={handleDirectChoosedOption}>
                 {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
               </select>
