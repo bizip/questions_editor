@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from '../utils/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
-import { Puff } from  'react-loader-spinner'
+import { Puff } from 'react-loader-spinner'
 import styles from "./Main.module.css";
 
 function Main() {
@@ -31,47 +31,30 @@ function Main() {
     }, []);
 
     return (
-
-        <div className={styles.main}>
+        <section>
             <div className='statement_nav'>
-                <h1>Statement List</h1>
+                <h2>My Previous Documents</h2>
             </div>
-            {data.length < 1 ? <div className={styles.loader}>
-            <Puff
-            height="80"
-            width="80"
-            radius={1}
-            color="rgb(77, 159, 146)"
-            ariaLabel="puff-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />
-
-            </div> : <section>
-                <form onSubmit={handleFormSubmit}>
-                    <Table striped bordered hover responsive>
-                        <thead>
-                            <tr>
-                                <th>Statement</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {(data.length > 0) && (data.map((Item, index) => (
-                                <tr key={Item.id}>
-                                    <td>{Item.question}</td>
-                                    <td>
-                                        <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>Edit</Link>
-                                    </td>
-                                </tr>
-                            )))}
-                        </tbody>
-                    </Table>
-                </form>
-            </section>
-            }
-        </div>
+            <div className={styles.sect_container}>
+                <div className={styles.newDoc}>
+                    <Link to='/options' variant='primary'>New Document</Link>
+                    <Link to='/options' variant='primary'>Clear All documents</Link>
+                </div>
+                <div className={styles.doCcontainer}>
+                    <div className={styles.doc}>
+                        <h2>Hi this is doc title</h2>
+                        <p>Write a clinical trial study protocol for a phase randomization blinding controls trial using intervention-name.
+                            With patient-count patients. Data is collected data-collection-interval via patient-asessment-method.
+                            Minimum age is minimum-age. Maximum age is maximum-age.
+                        </p>
+                        <div className={styles.docfooter}>
+                        <Link to='/options' className='link-success'>view more</Link>
+                        <Link to='/options' className='link-danger'>Delete</Link>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 export default Main;
