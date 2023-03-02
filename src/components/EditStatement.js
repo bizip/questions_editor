@@ -299,16 +299,12 @@ const EditStatement = () => {
           } else if ((item === '111')) {
             return <div className='opt_box'>
               <label>Budget provider name</label>
-              <select className="edit_dropdowns" name={111} id="questions" onChange={handleDirectChoosedOption}>
-                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
-              </select>
+              <input type="text" className="edit_dropdowns" id="numberInput" placeholder='eg: Pascal' name={111} onChange={handleDirectChoosedOption} />
             </div>
           } else if ((item === '117')) {
             return <div className='opt_box'>
               <label>Study Budget</label>
-              <select className="edit_dropdowns" name={117} id="questions" onChange={handleDirectChoosedOption}>
-                {dropdowns[item].length > 0 && dropdowns[item].map((item) => (<option value={item}>{item}</option>))}
-              </select>
+              <input type="text" className="edit_dropdowns" id="numberInput" placeholder='$50 000' name={117} onChange={handleDirectChoosedOption} />
             </div>
           }
         })}
