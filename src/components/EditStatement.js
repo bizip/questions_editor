@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -23,6 +24,9 @@ const EditStatement = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [updatedStatement, setUpdatedStatement] = useState([]);
+  const [storageItems, setStorageItems] = useState([]);
+  const [data1, setData1] = useState([]);
+
   const [questionData, setQuestionData] = useState({
 
   })
@@ -46,7 +50,7 @@ const EditStatement = () => {
   };
   const responseString = `Study Protocol 1. Title: A Phase 2a Unrandomized Double Blind Active Controlled Trial Using Zolgensma 2. Objectives: The primary objective of this study is to evaluate the efficacy and safety of Zolgensma in patients with a specific disease. The secondary objectives are to assess the quality of life of patients and to measure the rate of disease progression. 3. Study Design: This is a phase 2a unrandomized double blind active controlled trial using Zolgensma. 4. Study Population: The study population will include 40 patients aged 40-50 years old with the specific disease. 5. Exclusion Criteria: Patients with any of the following conditions will be excluded from the study: • Pregnant or lactating women • Patients with any other serious medical condition • Patients with any known allergies to Zolgensma • Patients with any known contraindications to Zolgensma 6. Treatment: The treatment will be administered intravenously over a period of one week. 7. Primary Outcome Measure: The primary outcome measure will be the rate of disease progression. 8. Secondary Outcome Measures: The secondary outcome measures will include quality of life assessments using imaging techniques. 9. Data Analysis: Data will be analysed using Cox proportional hazard models with a 0.001 significance level and will be adjusted using a false discovery rate. 10. Data Management and Monitoring: Data management and monitoring will be done by the principal investigator. Data quality and accuracy will be monitored through source data. 11. Study Duration: The study will last 24 weeks with an estimated completion date of completion-date. 12. Budget: The PAREXEL will provide a budget of $100 000 for this study.`
   // let word ="Study Protocol";
-  // const clippedString = responseString.replace(word, "").trim();
+  // const clippedString = responseString.replace(word, " ").trim();
   // const rows = responseString.split("\n").map((row) => row.split(": "));
   // console.log(rows, "+++++++++")
   let items = responseString.split(/\d+\.\s+/).slice(1);
@@ -95,6 +99,7 @@ const EditStatement = () => {
     });
     setSolution(response.data.choices[0].text);
     setIsLoading(false);
+    handleAddItem(response.data.choices[0].text);
   }
 
   useEffect(() => {
@@ -117,11 +122,30 @@ const EditStatement = () => {
     setQuestionData(statementData);
     setOptionArr(statementData.dropdown[currentIndex])
   }, [])
+  
+  const [list, setList] = useState([]);
+  const [list1, setList1] = useState([]);
 
+
+  useEffect(() => {
+    const savedList = localStorage.getItem('myList');
+    if (savedList) {
+      setList(JSON.parse(savedList));
+    }
+  }, []);
+
+  const handleAddItem =async (result) => {
+    let splitted =result.split("\n\n");
+    let title = splitted[1];
+    let summary =splitted[3];
+    const prevArr =[...list];
+    prevArr.push({id:Date.now, text: result, title,summary});
+    localStorage.setItem('myList', JSON.stringify(prevArr));
+  };
   return (
     <>
 
-     {!hasSubmitted && <section className='drop_sections'>
+      {!hasSubmitted && <section className='drop_sections'>
         <h2>Configuration</h2>
         {Object.keys(dropdowns).map(item => {
           if (item === '8') {
@@ -291,21 +315,21 @@ const EditStatement = () => {
 
         <button type="submit" className='btn btn-success' id="lname" name="lname" onClick={handleSubmitStatement}>Find an answer</button>
       </section>
-     }
-      {isLoading?<div className="loader">
-      <Puff
-      height="80"
-      width="80"
-      radius={1}
-      color="rgb(77, 159, 146)"
-      ariaLabel="puff-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-      visible={true}
-    />
-    </div>: <section dangerouslySetInnerHTML={{ __html: solution }} className="ans">
+      }
+      {isLoading ? <div className="loader">
+        <Puff
+          height="80"
+          width="80"
+          radius={1}
+          color="rgb(77, 159, 146)"
+          ariaLabel="puff-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div> : <section dangerouslySetInnerHTML={{ __html: solution }} className="ans">
       </section>
-      
+
       }
     </>
   )
