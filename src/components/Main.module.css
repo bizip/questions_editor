@@ -43,7 +43,7 @@
     border-radius: .5rem;
     padding: 1% 1.5%;
 }
-.doc h2{
+.doc h2,h3{
     font-size: 1.4rem;
     color: rgb(76, 76, 76);
 }

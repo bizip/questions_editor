@@ -57,11 +57,9 @@ function Main() {
                 </div>
                 <div className={styles.doCcontainer}>
                     {list.length > 0? list.map(result=>(
-                        <div className={styles.doc}>
-                        <h2>Hi this is doc title</h2>
-                        <p>Write a clinical trial study protocol for a phase randomization blinding controls trial using intervention-name.
-                            With patient-count patients. Data is collected data-collection-interval via patient-asessment-method.
-                            Minimum age is minimum-age. Maximum age is maximum-age.
+                        <div className={styles.doc} key={result.id}>
+                        <div dangerouslySetInnerHTML={{ __html: result.title }} ></div>
+                        <p>{result.summary}
                         </p>
                         <div className={styles.docfooter}>
                             <Link to='/options' className='link-success'>view more</Link>
@@ -70,7 +68,7 @@ function Main() {
                         </div>
                     )) :
                     <div>
-                    <h2>There is no item in the list</h2>
+                    <h3>There is no document in the list</h3>
                     {(data.length > 0) && (data.map((Item) => (
                         <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>Generate New Document</Link>
                     )))}
