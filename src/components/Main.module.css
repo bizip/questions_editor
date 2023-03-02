@@ -34,6 +34,11 @@
     margin-left: 1rem;
 }
 
+.newDoc button{
+    background-color: transparent;
+    border: none;
+}
+
 .sect_container{
     padding: 0 4%;
 }
@@ -43,7 +48,11 @@
     border-radius: .5rem;
     padding: 1% 1.5%;
 }
-.doc h2{
+
+.doc:not(:first-child){
+    margin-top: 2rem;
+}
+.doc h2,h3{
     font-size: 1.4rem;
     color: rgb(76, 76, 76);
 }
@@ -58,6 +67,11 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+.docfooter button{
+    background-color: transparent;
+    border: none;
 }
 
 .docfooter > *{
