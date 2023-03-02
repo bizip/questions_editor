@@ -49,6 +49,11 @@ function Main() {
         setList(updatedItems);
     };
 
+    const handleClearLocalStorage = () => {
+        localStorage.clear();
+        setList([]);
+      };
+
     return (
         <section>
             <div className='statement_nav'>
@@ -59,7 +64,7 @@ function Main() {
                     {(data.length > 0) && (data.map((Item) => (
                         <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>New Document</Link>
                     )))}
-                    <Link to='/options' variant='primary'>Clear All documents</Link>
+                    <button type='button' variant='primary' onClick={handleClearLocalStorage}>Clear All documents</button>
 
                 </div>
                 <div className={styles.doCcontainer}>
