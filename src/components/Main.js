@@ -41,7 +41,13 @@ function Main() {
     useEffect(() => {
         fetchDatafromStorage();
     }, [])
-    console.log(list, "This is the list")
+
+    const handleRemoveItem = (id) => {
+        const updatedItems = list.filter((item) => item.id !== id);
+        console.log(updatedItems,"las updated anfd filtered")
+        // setItems(updatedItems);
+    };
+
     return (
         <section>
             <div className='statement_nav'>
@@ -56,24 +62,24 @@ function Main() {
 
                 </div>
                 <div className={styles.doCcontainer}>
-                    {list.length > 0? list.map(result=>(
+                    {list.length > 0 ? list.map(result => (
                         <div className={styles.doc} key={result.id}>
-                        <div dangerouslySetInnerHTML={{ __html: result.title }} ></div>
-                        <p>{result.summary}
-                        </p>
-                        <div className={styles.docfooter}>
-                            <Link to='/options' className='link-success'>view more</Link>
-                            <Link to='/options' className='link-danger'>Delete</Link>
-                        </div>
+                            <div dangerouslySetInnerHTML={{ __html: result.title }} ></div>
+                            <p>{result.summary}
+                            </p>
+                            <div className={styles.docfooter}>
+                                <Link to='/options' className='link-success'>view more</Link>
+                                <Link to='/options' className='link-danger' id={result.id} onClick={handleRemoveItem}>Delete</Link>
+                            </div>
                         </div>
                     )) :
-                    <div>
-                    <h3>There is no document in the list</h3>
-                    {(data.length > 0) && (data.map((Item) => (
-                        <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>Generate New Document</Link>
-                    )))}
-                    </div>
-                 }
+                        <div>
+                            <h3>There is no document in the list</h3>
+                            {(data.length > 0) && (data.map((Item) => (
+                                <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>Generate New Document</Link>
+                            )))}
+                        </div>
+                    }
                 </div>
             </div>
         </section>
@@ -87,3 +93,14 @@ export default Main;
 
 
 
+
+
+
+const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = numbers.reduce((accumulator, current) => {
+    if (current % 2 === 0) {
+        accumulator.push(current);
+    }
+    return accumulator;
+}, []);
+console.log(evenNumbers); 
