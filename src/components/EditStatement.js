@@ -139,7 +139,7 @@ const EditStatement = () => {
     let title = splitted[1];
     let summary =splitted[3];
     const prevArr =[...list];
-    prevArr.push({id:Date.now, text: result, title,summary});
+    prevArr.push({id: Date.now(), text: result, title,summary});
     localStorage.setItem('myList', JSON.stringify(prevArr));
   };
   return (

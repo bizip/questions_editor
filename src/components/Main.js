@@ -42,10 +42,11 @@ function Main() {
         fetchDatafromStorage();
     }, [])
 
-    const handleRemoveItem = (id) => {
-        const updatedItems = list.filter((item) => item.id !== id);
-        console.log(updatedItems,"las updated anfd filtered")
-        // setItems(updatedItems);
+    const handleRemoveItem = (e) => {
+
+        const updatedItems = list.filter((item) => item.id !== Number(e.target.id));
+        localStorage.setItem('myList', JSON.stringify(updatedItems));
+        setList(updatedItems);
     };
 
     return (
@@ -69,7 +70,7 @@ function Main() {
                             </p>
                             <div className={styles.docfooter}>
                                 <Link to='/options' className='link-success'>view more</Link>
-                                <Link to='/options' className='link-danger' id={result.id} onClick={handleRemoveItem}>Delete</Link>
+                                <button type='button' className='link-danger' id={result.id} onClick={e => { handleRemoveItem(e) }}>Delete</button>
                             </div>
                         </div>
                     )) :
