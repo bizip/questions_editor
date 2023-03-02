@@ -9,6 +9,7 @@ import styles from "./Main.module.css";
 function Main() {
     const [choseCategory, setChooseCategory] = useState('');
     const [data, setData] = useState([]);
+    const [list, setList] = useState([]);
     const navigate = useNavigate();
 
     const handleFormSubmit = (event) => {
@@ -26,10 +27,21 @@ function Main() {
             setData(tempDoc);
         });
     };
+
+    const fetchDatafromStorage = () => {
+        const savedList = localStorage.getItem('myList');
+        if (savedList) {
+            setList(JSON.parse(savedList));
+        }
+    }
     useEffect(() => {
         handleSyncData();
     }, []);
 
+    useEffect(() => {
+        fetchDatafromStorage();
+    }, [])
+    console.log(list, "This is the list")
     return (
         <section>
             <div className='statement_nav'>
@@ -37,21 +49,33 @@ function Main() {
             </div>
             <div className={styles.sect_container}>
                 <div className={styles.newDoc}>
-                    <Link to='/options' variant='primary'>New Document</Link>
+                    {(data.length > 0) && (data.map((Item) => (
+                        <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>New Document</Link>
+                    )))}
                     <Link to='/options' variant='primary'>Clear All documents</Link>
+
                 </div>
                 <div className={styles.doCcontainer}>
-                    <div className={styles.doc}>
+                    {list.length > 0? list.map(result=>(
+                        <div className={styles.doc}>
                         <h2>Hi this is doc title</h2>
                         <p>Write a clinical trial study protocol for a phase randomization blinding controls trial using intervention-name.
                             With patient-count patients. Data is collected data-collection-interval via patient-asessment-method.
                             Minimum age is minimum-age. Maximum age is maximum-age.
                         </p>
                         <div className={styles.docfooter}>
-                        <Link to='/options' className='link-success'>view more</Link>
-                        <Link to='/options' className='link-danger'>Delete</Link>
+                            <Link to='/options' className='link-success'>view more</Link>
+                            <Link to='/options' className='link-danger'>Delete</Link>
+                        </div>
+                        </div>
+                    )) :
+                    <div>
+                    <h2>There is no item in the list</h2>
+                    {(data.length > 0) && (data.map((Item) => (
+                        <Link to='/edit' state={{ statement: Item.question, category: choseCategory, id: Item.id, dropdowns: Item.dropdown }} className="btn btn-link text-decoration-none" variant='primary'>Generate New Document</Link>
+                    )))}
                     </div>
-                    </div>
+                 }
                 </div>
             </div>
         </section>
