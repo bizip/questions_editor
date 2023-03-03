@@ -74,7 +74,7 @@ function Main() {
                             <p>{result.summary}
                             </p>
                             <div className={styles.docfooter}>
-                                <Link to={`/clinicaltrials/clinicaltrialstudyprotocal/${result.id}`} className='link-success'>view more</Link>
+                                <Link to={`/clinicaltrials/clinicaltrialstudyprotocal/${result.id}`} state={{data:result }} className='link-success'>view more</Link>
                                 <button type='button' className='link-danger' id={result.id} onClick={e => { handleRemoveItem(e) }}>Delete</button>
                             </div>
                         </div>
