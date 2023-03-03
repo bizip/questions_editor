@@ -18,6 +18,7 @@ import PhalmacovIgilance from './components/PhalmaCovIgilance/PhalmacovIgilance'
 import ClinicalTrialStudyProtocal from './components/ClinicalTrials/ClinicalTrialStudyProtocal/ClinicalTrialStudyProtocal';
 import StudyStartUp from './components/ClinicalTrials/studyStartUp/StudyStartUp';
 import ClinicalTrialApplication from './components/ClinicalTrials/ClinicatTrialApplication/ClinicalTrialApplication';
+import Details from './components/Details';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +28,7 @@ root.render(
         <Route exact path="/" element={<Home />} />
         <Route exact path="/clinicaltrials" element={<ClinicalTrials />} />
         <Route exact path="/clinicaltrials/clinicaltrialstudyprotocal" element={<ClinicalTrialStudyProtocal />} />
+        <Route exact path="/clinicaltrials/clinicaltrialstudyprotocal/:id" element={<Details />} />
         <Route exact path="/clinicaltrials/studystartup" element={<StudyStartUp />} />
         <Route exact path="//clinicaltrials/clinicaltrialapplication" element={<ClinicalTrialApplication />} />
         <Route exact path="/regulatoryafairs" element={<RegulatoryAfairs />} />
