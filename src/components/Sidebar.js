@@ -21,8 +21,6 @@ function Sidebar() {
         <ul>
           <li><Link to="/clinicaltrials/clinicaltrialstudyprotocal" className={currentLink === 0 ? 'active' : ''}
             onClick={() => handleClick(0)}>Previous Documents</Link></li>
-          <li><Link to="/new" className={currentLink === 1 ? 'active' : ''}
-            onClick={() => handleClick(1)}>New document</Link></li>
         </ul>
       </nav>
     </div >
