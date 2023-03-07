@@ -96,10 +96,9 @@ const EditStatement = () => {
       // replace prompt with messages and set prompt as content with a role.
         messages: [{role: "user", content: `${updatedStatement.join(" ")}. Make it an HTML section`}]
     });
-    setSolution(response.data.choices[0].text);
+    setSolution(response.data.choices[0].message.content);
     setIsLoading(false);
-    handleAddItem(response.data.choices[0].text);
-    console.log(response)
+    handleAddItem(response.data.choices[0].message.content);
   }
 
   useEffect(() => {
