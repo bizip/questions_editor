@@ -48,12 +48,7 @@ const EditStatement = () => {
       };
     });
   };
-  const responseString = `Study Protocol 1. Title: A Phase 2a Unrandomized Double Blind Active Controlled Trial Using Zolgensma 2. Objectives: The primary objective of this study is to evaluate the efficacy and safety of Zolgensma in patients with a specific disease. The secondary objectives are to assess the quality of life of patients and to measure the rate of disease progression. 3. Study Design: This is a phase 2a unrandomized double blind active controlled trial using Zolgensma. 4. Study Population: The study population will include 40 patients aged 40-50 years old with the specific disease. 5. Exclusion Criteria: Patients with any of the following conditions will be excluded from the study: • Pregnant or lactating women • Patients with any other serious medical condition • Patients with any known allergies to Zolgensma • Patients with any known contraindications to Zolgensma 6. Treatment: The treatment will be administered intravenously over a period of one week. 7. Primary Outcome Measure: The primary outcome measure will be the rate of disease progression. 8. Secondary Outcome Measures: The secondary outcome measures will include quality of life assessments using imaging techniques. 9. Data Analysis: Data will be analysed using Cox proportional hazard models with a 0.001 significance level and will be adjusted using a false discovery rate. 10. Data Management and Monitoring: Data management and monitoring will be done by the principal investigator. Data quality and accuracy will be monitored through source data. 11. Study Duration: The study will last 24 weeks with an estimated completion date of completion-date. 12. Budget: The PAREXEL will provide a budget of $100 000 for this study.`
-  // let word ="Study Protocol";
-  // const clippedString = responseString.replace(word, " ").trim();
-  // const rows = responseString.split("\n").map((row) => row.split(": "));
-  // console.log(rows, "+++++++++")
-  let items = responseString.split(/\d+\.\s+/).slice(1);
+
   // console.log(items, "ITEMMMMMMMMMM");
 
   const location = useLocation()
@@ -91,15 +86,20 @@ const EditStatement = () => {
   const handleSubmitStatement = async () => {
     setHasSubmitted(true);
     setIsLoading(true);
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: `${updatedStatement.join(" ")}. Make it an HTML section`,
-      max_tokens: 1000,
-      temperature: 0,
+    const response = await openai.createChatCompletion({
+      // model: "text-davinci-003",
+      // prompt: `${updatedStatement.join(" ")}. Make it an HTML section`,
+      // max_tokens: 1000,
+      // temperature: 0,
+
+      model: "gpt-3.5-turbo",
+      // replace prompt with messages and set prompt as content with a role.
+        messages: [{role: "user", content: `${updatedStatement.join(" ")}. Make it an HTML section`}]
     });
     setSolution(response.data.choices[0].text);
     setIsLoading(false);
     handleAddItem(response.data.choices[0].text);
+    console.log(response)
   }
 
   useEffect(() => {
