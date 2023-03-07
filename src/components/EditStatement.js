@@ -49,8 +49,6 @@ const EditStatement = () => {
     });
   };
 
-  // console.log(items, "ITEMMMMMMMMMM");
-
   const location = useLocation()
   const { statement, category, id, dropdowns } = location.state;
 
@@ -87,10 +85,6 @@ const EditStatement = () => {
     setHasSubmitted(true);
     setIsLoading(true);
     const response = await openai.createChatCompletion({
-      // model: "text-davinci-003",
-      // prompt: `${updatedStatement.join(" ")}. Make it an HTML section`,
-      // max_tokens: 1000,
-      // temperature: 0,
 
       model: "gpt-3.5-turbo",
       // replace prompt with messages and set prompt as content with a role.
