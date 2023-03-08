@@ -82,17 +82,19 @@ const EditStatement = () => {
     setUpdatedStatement(newArray);
   }
   const handleSubmitStatement = async () => {
+    console.log(`${updatedStatement.join(" ")}. Make it an HTML section`);
     setHasSubmitted(true);
     setIsLoading(true);
     const response = await openai.createChatCompletion({
-
       model: "gpt-3.5-turbo",
       // replace prompt with messages and set prompt as content with a role.
         messages: [{role: "user", content: `${updatedStatement.join(" ")}. Make it an HTML section`}]
     });
     setSolution(response.data.choices[0].message.content);
     setIsLoading(false);
+
     handleAddItem(response.data.choices[0].message.content);
+
   }
 
   useEffect(() => {
