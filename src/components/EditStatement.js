@@ -82,17 +82,18 @@ const EditStatement = () => {
     setUpdatedStatement(newArray);
   }
   const handleSubmitStatement = async () => {
-    console.log(`${updatedStatement.join(" ")}. Make it an HTML section`);
+    console.log(`${updatedStatement.join(" ")}`);
     setHasSubmitted(true);
     setIsLoading(true);
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
+      temperature:1,
       // replace prompt with messages and set prompt as content with a role.
-        messages: [{role: "user", content: `${updatedStatement.join(" ")}. Make it an HTML section`}]
+        messages: [{role: "user", content: `${updatedStatement.join(" ")}`}]
     });
     setSolution(response.data.choices[0].message.content);
+    console.log(response.data.choices[0].message.content);
     setIsLoading(false);
-
     handleAddItem(response.data.choices[0].message.content);
 
   }
@@ -318,8 +319,7 @@ const EditStatement = () => {
           wrapperClass=""
           visible={true}
         />
-      </div> : <section dangerouslySetInnerHTML={{ __html: solution }} className="ans">
-      </section>
+      </div> :<pre className="preformat">{solution}</pre>
 
       }
     </>

@@ -14,8 +14,9 @@ const Details = () => {
         <section className={styles.home_container}>
             <div className={styles.sidebar}><Sidebar /></div>
             <div className={styles.main_section}>
-            <section dangerouslySetInnerHTML={{ __html: data.text }} className="ans">
-            </section>
+            <pre  className="preformat">
+            {data.text}
+            </pre>
       
             </div>
         </section>

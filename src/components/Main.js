@@ -71,6 +71,7 @@ function Main() {
                     {list.length > 0 ? list.map(result => (
                         <div className={styles.doc} key={result.id}>
                             <div dangerouslySetInnerHTML={{ __html: result.title }} ></div>
+                            <br />
                             <p>{result.summary}
                             </p>
                             <div className={styles.docfooter}>

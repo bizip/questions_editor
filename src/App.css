@@ -373,3 +373,12 @@ margin: .5rem 0;
 .loader >*{
   color: rgb(77, 159, 146);
 }
+
+.preformat{
+  font-family: sans-serif;
+  max-width:100% !important;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  padding: 0 2rem;
+  font-size: 1.2rem;
+}
